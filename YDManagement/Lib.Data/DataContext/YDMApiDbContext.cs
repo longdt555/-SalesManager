@@ -7,10 +7,10 @@ namespace Lib.Data.DataContext
     public class YDMApiDbContext : DbContext
     {
         public YDMApiDbContext(DbContextOptions<YDMApiDbContext> options) : base(options) { }
-        DbSet<Product> Products { get; set; }
-        DbSet<Category> Categories { get; set; }
-        DbSet<Order> Orders { get; set; }
-        DbSet<Customer> Customers { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Customer> Customers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Seed data

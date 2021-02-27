@@ -1,5 +1,7 @@
 using AutoMapper;
 using Lib.Data.DataContext;
+using Lib.Service.IServices;
+using Lib.Service.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -108,6 +110,7 @@ namespace YDManagement
             #endregion
 
             #region Dependency injection - scopes
+            services.AddScoped<IProductService, ProductService>();
             #endregion
 
             #region database context
