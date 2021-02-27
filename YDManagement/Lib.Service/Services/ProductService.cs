@@ -4,6 +4,7 @@ using Lib.Data.DataContext;
 using Lib.Data.Entity;
 using Lib.Service.Dtos;
 using Lib.Service.IServices;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -51,21 +52,31 @@ namespace Lib.Service.Services
 
         public IEnumerable<ProductDto> GetAll()
         {
-            return _context.Products.Where(x => x.IsDeleted == false).Select(x => new ProductDto()
+            return _context.Products.Include(x => x.Category).Where(x => x.IsDeleted == false && x.Category.IsDeleted == false).Select(x => new ProductDto()
             {
                 Id = x.Id,
-                Name = x.Name
+                Name = x.Name,
+                Price = x.Price,
+                Description = x.Description,
+                Category = x.Category != null ? new CategoryDto() { } : null
             });
         }
 
         public ProductDto GetById(int id)
         {
-            throw new System.NotImplementedException();
+            return _context.Products.Include(x => x.Category).Where(x => x.IsDeleted == false && x.Id == id && x.Category.IsDeleted == false).Select(x => new ProductDto()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Price = x.Price,
+                Description = x.Description,
+                Category = x.Category != null ? new CategoryDto() { } : null
+            }).FirstOrDefault();
         }
 
         public int GetRecordCount()
         {
-            throw new System.NotImplementedException();
+            return _context.Products.Where(x => x.IsDeleted == false).Count();
         }
 
         public IQueryable<ProductDto> Query()

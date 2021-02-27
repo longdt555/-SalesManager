@@ -1,4 +1,5 @@
 ﻿using Lib.Service.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -17,10 +18,12 @@ namespace YDManagement.APIControllers
         }
 
         // GET: api/<ProductController>
+        [AllowAnonymous]
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult GetAll()
         {
-            return new string[] { "value1", "value2" };
+            var data = _productService.GetAll();
+            return Ok(data);
         }
 
         // GET api/<ProductController>/5

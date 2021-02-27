@@ -1,4 +1,5 @@
 using AutoMapper;
+using Lib.Common.Helpers;
 using Lib.Data.DataContext;
 using Lib.Service.IServices;
 using Lib.Service.Services;
@@ -92,8 +93,11 @@ namespace YDManagement
             #endregion
 
             #region configure strongly typed settings objects
-            //var appSettingsSection = Configuration.GetSection("AppSettings");
-            //services.Configure<AppSettings>(appSettingsSection);
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            var jwtSection = Configuration.GetSection("Jwt");
+            services.Configure<Jwt>(jwtSection);
             #endregion
 
             #region auto mapper
