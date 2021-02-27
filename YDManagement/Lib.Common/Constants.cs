@@ -90,6 +90,7 @@
 
         #region invalid
         public const string ErrorRegisterUserNameInvalid = "ERROR.REGISTER.USERNAME_INVALID";
+        public const string ErrorContainsSpecialCharacter = "ERROR.CONTAINS.SPECIAL_CHARACTER";
         public const string ErrorRegisterEmailInvalid = "ERROR.REGISTER.EMAIL_INVALID";
         public const string ErrorRegisterPasswordInvalid = "ERROR.REGISTER.PASSWORD_INVALID";
         public const string ErrorTokenInvalid = "ERROR.TOKEN.INVALID";
@@ -102,8 +103,8 @@
         #endregion
 
         #region length ckecking
-        public const string ErrorCreateLengthInvalid = "ERROR.CREATE.LENGTH_2_255";
-        public const string ErrorCreateMaxLengthInvalid = "ERROR.CREATE.MAX_LENGTH_500";
+        public const string ErrorTextLengthInvalid = "ERROR.TEXT.LENGTH_2_255";
+        public const string ErrorTextMaxLengthInvalid = "ERROR.TEXT.MAX_LENGTH_500";
         #endregion
 
         #region required

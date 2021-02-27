@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace FlcDigiLinkApi.Authorization
+namespace YDManagement.Authorization
 {
     public class PermissionAttribute : ActionFilterAttribute
     {

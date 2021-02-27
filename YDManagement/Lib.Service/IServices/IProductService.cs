@@ -1,8 +1,6 @@
 ﻿using Lib.Data.Entity;
 using Lib.Service.Dtos;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Lib.Service.IServices
 {
@@ -13,5 +11,6 @@ namespace Lib.Service.IServices
         void Delete(int id);
         void DeleteMany(List<int> ids);
         int GetRecordCount();
+        bool IsOutOfStock(int id, int? quantity = 0);
     }
 }
