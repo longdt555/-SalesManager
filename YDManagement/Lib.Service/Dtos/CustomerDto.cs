@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Lib.Service.Dtos
 {
-    public class CategoryDto:BaseDto
+    public class CustomerDto:BaseDto
     {
         public string Name { get; set; }
-        public string Description { get; set; }
-        public virtual IEnumerable<Product> Products { get; set; }
+        public string Address { get; set; }
+        public virtual IEnumerable<Order> Orders { get; set; }
     }
 }

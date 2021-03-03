@@ -115,6 +115,9 @@ namespace YDManagement
 
             #region Dependency injection - scopes
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<ICustomerService, CustomerService>();
             #endregion
 
             #region database context
