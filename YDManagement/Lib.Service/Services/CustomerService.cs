@@ -7,49 +7,41 @@ using Lib.Service.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Lib.Common.Global;
+using Lib.Data.Entity;
 
 namespace Lib.Service.Services
 {
     public class CustomerService : ICustomerService
     {
-        private readonly YDMApiDbContext _context;
-        public CustomerService(YDMApiDbContext context)
+        private readonly YdmApiDbContext _context;
+        public CustomerService(YdmApiDbContext context)
         {
             _context = context;
         }
-        public CustomerDto Authenticate(UserPortalDto obj)
+        public Customer Authenticate(UserPortalDto obj)
         {
             #region validate
             if (string.IsNullOrEmpty(obj.UserName))
-                throw new AppException(AppCodeStatus.ErrorCreateUserNameRequired);
+                throw new AppException(AppCodeStatus.CreateUserNameRequired);
             if (string.IsNullOrEmpty(obj.Password))
-                throw new AppException(AppCodeStatus.ErrorCreatePasswordRequired);
+                throw new AppException(AppCodeStatus.CreatePasswordRequired);
             // username checking
             if (obj.UserName.Length < 2 || obj.UserName.Length > 50)
-                throw new AppException(AppCodeStatus.ErrorTextLengthInvalid);
+                throw new AppException(AppCodeStatus.TextLengthInvalid);
             if (AppHelpers.HasSpecialChar(obj.UserName))
-                throw new AppException(AppCodeStatus.ErrorContainsSpecialCharacter);
+                throw new AppException(AppCodeStatus.ContainsSpecialCharacter);
             // password checking
             if (obj.Password.Length < 6 || obj.Password.Length > 30)
-                throw new AppException(AppCodeStatus.ErrorTextLengthInvalid);
+                throw new AppException(AppCodeStatus.TextLengthInvalid);
             if (!AppHelpers.PasswordValid(obj.Password))
-                throw new AppException(AppCodeStatus.ErrorRegisterPasswordInvalid);
+                throw new AppException(AppCodeStatus.RegisterPasswordInvalid);
             #endregion
 
-            return _context.Customers.Where(x => x.UserName.Trim().Replace(" ", "").ToLower().Equals(obj.UserName.ToLower()) && Security.EncryptKey(obj.Password).Equals(x.Password))
-                .Select(x => new CustomerDto()
-                {
-                    Id = x.Id,
-                    CreatedBy = x.CreatedBy,
-                    CreatedDate = x.CreatedDate,
-                    UpdatedBy = x.UpdatedBy,
-                    UpdatedDate = x.UpdatedDate,
-                    IsDeleted = x.IsDeleted,
-                    Name = x.Name,
-                    Address = x.Address,
-                    UserName = x.UserName
-                }).SingleOrDefault();
+            var data = _context.Customers
+                .SingleOrDefault(x => x.UserName.Trim().Replace(" ", "").ToLower().Equals(obj.UserName.ToLower()) && Security.EncryptKey(obj.Password).Equals(x.Password));
+            CurrentContext.LoggedOnClientUser = data;
+            return data;
         }
 
         public IEnumerable<CustomerDto> GetAll()
@@ -57,7 +49,7 @@ namespace Lib.Service.Services
             throw new NotImplementedException();
         }
 
-        public CustomerDto GetById(int id)
+        public CustomerDto GetById(Guid id)
         {
             throw new NotImplementedException();
         }

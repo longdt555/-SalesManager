@@ -1,8 +1,7 @@
-﻿using Lib.Data.Entity;
+﻿using System;
+using Lib.Data.Entity;
 using Lib.Service.Dtos;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Lib.Service.IServices
 {
@@ -10,8 +9,8 @@ namespace Lib.Service.IServices
     {
         Order Create(Order obj);
         void Update(Order obj);
-        void Delete(int id);
-        void DeleteMany(List<int> ids);
+        void Delete(Guid id);
+        void DeleteMany(List<Guid> ids);
         int GetRecordCount();
     }
 }

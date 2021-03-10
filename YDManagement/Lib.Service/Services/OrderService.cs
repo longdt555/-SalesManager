@@ -13,8 +13,8 @@ namespace Lib.Service.Services
 {
     public class OrderService : IOrderService
     {
-        private readonly YDMApiDbContext _context;
-        public OrderService(YDMApiDbContext context)
+        private readonly YdmApiDbContext _context;
+        public OrderService(YdmApiDbContext context)
         {
             _context = context;
         }
@@ -25,7 +25,7 @@ namespace Lib.Service.Services
             return obj;
         }
 
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
             var data = _context.Orders.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
             if (data == null) return;
@@ -34,8 +34,8 @@ namespace Lib.Service.Services
             _context.Orders.Update(data);
             _context.SaveChanges();
         }
-
-        public void DeleteMany(List<int> ids)
+        
+        public void DeleteMany(List<Guid> ids)
         {
             var data = _context.Orders.Where(x => ids.Contains(x.Id));
             if (!data.Any()) return;
@@ -73,7 +73,7 @@ namespace Lib.Service.Services
             });
         }
 
-        public OrderDto GetById(int id)
+        public OrderDto GetById(Guid id)
         {
             return _context.Orders.Include(x => x.Product).Include(x => x.Customer).Where(x => x.Id == id && x.IsDeleted == false && x.Product.IsDeleted == false && x.Customer.IsDeleted == false).Select(x => new OrderDto()
             {
@@ -100,9 +100,14 @@ namespace Lib.Service.Services
             }).FirstOrDefault();
         }
 
+        public OrderDto GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public int GetRecordCount()
         {
-            return _context.Orders.Where(x => x.IsDeleted == false).Count();
+            return _context.Orders.Count(x => x.IsDeleted == false);
         }
 
         public IQueryable<OrderDto> Query()

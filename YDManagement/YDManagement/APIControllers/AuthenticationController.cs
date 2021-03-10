@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Lib.Common;
 using Lib.Common.Helpers;
-using Lib.Service.Dtos;
 using Lib.Service.Dtos.UserPortal;
 using Lib.Service.IServices;
 using Microsoft.AspNetCore.Authorization;
@@ -14,21 +13,22 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Lib.Data.Entity;
 
 namespace YDManagement.APIControllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthenicationController : ControllerBase
+    public class AuthenticationController : ControllerBase
     {
         private readonly Jwt _jwt;
         private readonly IMapper _mapper;
-        private readonly ICustomerService _customerSerive;
-        public AuthenicationController(IOptions<Jwt> jwt, IMapper mapper, ICustomerService customerSerive)
+        private readonly ICustomerService _customerService;
+        public AuthenticationController(IOptions<Jwt> jwt, IMapper mapper, ICustomerService customerService)
         {
             _jwt = jwt.Value;
             _mapper = mapper;
-            _customerSerive = customerSerive;
+            _customerService = customerService;
         }
         #region SignIn
         /// <summary>
@@ -42,7 +42,7 @@ namespace YDManagement.APIControllers
             IActionResult response = Unauthorized();
             try
             {
-                var data = _customerSerive.Authenticate(model);
+                var data = _customerService.Authenticate(model);
                 if (data == null) return response;
 
                 var tokenStr = GenerateAccessToken(data, model.RememberMe);
@@ -59,12 +59,12 @@ namespace YDManagement.APIControllers
             {
                 switch (ex.Message)
                 {
-                    case AppCodeStatus.ErrorCreateUserNameRequired:
-                    case AppCodeStatus.ErrorCreatePasswordRequired:
+                    case AppCodeStatus.CreateUserNameRequired:
+                    case AppCodeStatus.CreatePasswordRequired:
                         return Ok(new { StatusCode = StatusCodes.Status411LengthRequired, ex.Message });
-                    case AppCodeStatus.ErrorTextLengthInvalid:
-                    case AppCodeStatus.ErrorContainsSpecialCharacter:
-                    case AppCodeStatus.ErrorRegisterPasswordInvalid:
+                    case AppCodeStatus.TextLengthInvalid:
+                    case AppCodeStatus.ContainsSpecialCharacter:
+                    case AppCodeStatus.RegisterPasswordInvalid:
                         return Ok(new { StatusCode = StatusCodes.Status409Conflict, ex.Message });
                     default:
                         return response;
@@ -86,7 +86,7 @@ namespace YDManagement.APIControllers
         #endregion
 
         #region private helper methods 
-        private string GenerateAccessToken(CustomerDto data, bool rememberMe = false)
+        private string GenerateAccessToken(Customer data, bool rememberMe = false)
         {
             var expiresVal = rememberMe
                 ? new DateTimeOffset(DateTime.Now.AddYears(1)).DateTime
@@ -104,7 +104,7 @@ namespace YDManagement.APIControllers
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-        private static IEnumerable<Claim> GetUserClaims(CustomerDto data)
+        private static IEnumerable<Claim> GetUserClaims(Customer data)
         {
             var claims = new[]
            {

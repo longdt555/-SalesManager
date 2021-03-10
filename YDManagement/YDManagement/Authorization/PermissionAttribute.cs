@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using Lib.Common;
-using Lib.Common.Global;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -17,10 +14,10 @@ namespace YDManagement.Authorization
             if (string.IsNullOrEmpty(Roles)) return;
             try
             {
-                var lstRoleAllowed = Roles.Split(Constants.Comma).ToList();
-                if (lstRoleAllowed.Contains(LoggedOnAdminUser.RoleName))
-                    return;
-                context.Result = new UnauthorizedObjectResult(StatusCodes.Status403Forbidden);
+                //var lstRoleAllowed = Roles.Split(Constants.Comma).ToList();
+                //if (lstRoleAllowed.Contains(LoggedOnUser.RoleName))
+                //    return;
+                //context.Result = new UnauthorizedObjectResult(StatusCodes.Status403Forbidden);
             }
             catch
             {

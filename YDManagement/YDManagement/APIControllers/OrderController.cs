@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
 using Lib.Common;
-using Lib.Common.Global;
 using Lib.Data.Entity;
 using Lib.Service.Dtos;
 using Lib.Service.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Net.Http.Headers;
 using System;
-using YDManagement.Helpers;
+using Lib.Common.Global;
 
 namespace YDManagement.APIControllers
 {
@@ -39,28 +37,24 @@ namespace YDManagement.APIControllers
 
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(Guid id)
         {
             var data = _orderService.GetById(id);
             return Ok(data);
         }
 
         // POST api/<ProductController>
-        [AllowAnonymous]
         [HttpPost("ClientCreate")]
         public IActionResult ClientCreate([FromBody] OrderDto model)
         {
             IActionResult response = Unauthorized();
             try
             {
-                #region token checking
-                if (!HasPermission()) return response;
-                #endregion
                 var today = DateTime.Now;
-                var currentUser = LoggedOnClientUser.UserId;
+                var currentUser = CurrentContext.LoggedOnClientUser.Id;
                 var data = _mapper.Map<Order>(model);
                 if (_productService.IsOutOfStock(data.ProductId, data.Quantity))
-                    return Ok(new { StatusCode = StatusCodes.Status409Conflict, Message = AppCodeStatus.ErrorOutOfStock });
+                    return Ok(new { StatusCode = StatusCodes.Status409Conflict, Message = AppCodeStatus.OutOfStock });
 
                 data.CustomerId = currentUser;
                 data.CreatedBy = currentUser;
@@ -90,7 +84,7 @@ namespace YDManagement.APIControllers
             try
             {
                 var today = DateTime.Now;
-                var currentUser = LoggedOnAdminUser.UserId;
+                var currentUser = CurrentContext.LoggedOnClientUser.Id;
                 var data = _mapper.Map<Order>(model);
                 data.CreatedBy = currentUser;
                 data.CreatedDate = today;
@@ -103,14 +97,5 @@ namespace YDManagement.APIControllers
                 return BadRequest();
             }
         }
-
-        #region private funtions helper
-        // client token checking
-        private bool HasPermission()
-        {
-            var accessToken = Request.Headers[HeaderNames.Authorization].ToString(); // get token from the client
-            return AppHelpers.ValidToken(accessToken);
-        }
-        #endregion
     }
 }

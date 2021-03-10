@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Lib.Data.Entity
@@ -7,7 +8,7 @@ namespace Lib.Data.Entity
     public class Product : BaseEntity
     {
         public string Name { get; set; }
-        public int CategoryId { get; set; }
+        public Guid CategoryId { get; set; }
         public virtual Category Category { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }

@@ -1,4 +1,5 @@
-﻿using Lib.Data.Entity;
+﻿using System;
+using Lib.Data.Entity;
 using Lib.Service.Dtos;
 using System.Collections.Generic;
 
@@ -8,9 +9,9 @@ namespace Lib.Service.IServices
     {
         Product Create(Product obj);
         void Update(Product obj);
-        void Delete(int id);
-        void DeleteMany(List<int> ids);
+        void Delete(Guid id);
+        void DeleteMany(List<Guid> ids);
         int GetRecordCount();
-        bool IsOutOfStock(int id, int? quantity = 0);
+        bool IsOutOfStock(Guid id, int? quantity = 0);
     }
 }

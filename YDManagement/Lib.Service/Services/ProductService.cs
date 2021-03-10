@@ -1,4 +1,5 @@
-﻿using Lib.Common;
+﻿using System;
+using Lib.Common;
 using Lib.Common.Helpers;
 using Lib.Data.DataContext;
 using Lib.Data.Entity;
@@ -12,8 +13,8 @@ namespace Lib.Service.Services
 {
     public class ProductService : IProductService
     {
-        private readonly YDMApiDbContext _context;
-        public ProductService(YDMApiDbContext context)
+        private readonly YdmApiDbContext _context;
+        public ProductService(YdmApiDbContext context)
         {
             _context = context;
         }
@@ -21,7 +22,7 @@ namespace Lib.Service.Services
         {
             #region validate
             if (string.IsNullOrEmpty(obj.Name))
-                throw new AppException(AppCodeStatus.ErrorCreateNameRequired);
+                throw new AppException(AppCodeStatus.CreateNameRequired);
             #endregion
 
             _context.Products.Add(obj);
@@ -29,7 +30,7 @@ namespace Lib.Service.Services
             return obj;
         }
 
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
             var data = _context.Products.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
             if (data == null) return;
@@ -39,7 +40,7 @@ namespace Lib.Service.Services
             _context.SaveChanges();
         }
 
-        public void DeleteMany(List<int> ids)
+        public void DeleteMany(List<Guid> ids)
         {
             var data = _context.Products.Where(x => ids.Contains(x.Id));
             if (!data.Any()) return;
@@ -49,6 +50,7 @@ namespace Lib.Service.Services
             _context.Products.UpdateRange(data);
             _context.SaveChanges();
         }
+
 
         public IEnumerable<ProductDto> GetAll()
         {
@@ -64,7 +66,7 @@ namespace Lib.Service.Services
                 UpdatedBy = x.UpdatedBy,
                 UpdatedDate = x.UpdatedDate,
                 IsDeleted = x.IsDeleted,
-                CategoryId = x.Category != null ? x.Category.Id : 0,
+                CategoryId = x.Category != null ? x.Category.Id : Guid.Empty,
                 Category = x.Category != null ? new CategoryDto()
                 {
                     Id = x.Category.Id,
@@ -79,7 +81,7 @@ namespace Lib.Service.Services
             });
         }
 
-        public ProductDto GetById(int id)
+        public ProductDto GetById(Guid id)
         {
             return _context.Products.Include(x => x.Category).Where(x => x.IsDeleted == false && x.Id == id && x.Category.IsDeleted == false).Select(x => new ProductDto()
             {
@@ -93,8 +95,9 @@ namespace Lib.Service.Services
                 UpdatedBy = x.UpdatedBy,
                 UpdatedDate = x.UpdatedDate,
                 IsDeleted = x.IsDeleted,
-                CategoryId = x.Category != null ? x.Category.Id : 0,
-                Category = x.Category != null ? new CategoryDto() {
+                CategoryId = x.Category != null ? x.Category.Id : Guid.Empty,
+                Category = x.Category != null ? new CategoryDto()
+                {
                     Id = x.Category.Id,
                     Name = x.Category.Name,
                     Description = x.Category.Description,
@@ -109,10 +112,10 @@ namespace Lib.Service.Services
 
         public int GetRecordCount()
         {
-            return _context.Products.Where(x => x.IsDeleted == false).Count();
+            return _context.Products.Count(x => x.IsDeleted == false);
         }
 
-        public bool IsOutOfStock(int id, int? quantity = 0)
+        public bool IsOutOfStock(Guid id, int? quantity = 0)
         {
             return _context.Products.Any(x => x.Id == id && x.Quantity < quantity && x.IsDeleted == false);
         }
@@ -126,7 +129,7 @@ namespace Lib.Service.Services
         {
             #region validate
             if (string.IsNullOrEmpty(obj.Name))
-                throw new AppException(AppCodeStatus.ErrorCreateNameRequired);
+                throw new AppException(AppCodeStatus.CreateNameRequired);
             #endregion
 
             var exObj = _context.Products.FirstOrDefault(x => x.Id == obj.Id && x.IsDeleted == false);

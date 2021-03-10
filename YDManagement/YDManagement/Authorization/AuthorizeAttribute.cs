@@ -1,7 +1,4 @@
 using System;
-using System.Linq;
-using System.Security.Claims;
-using Lib.Common.Global;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -21,11 +18,11 @@ namespace YDManagement.Authorization
             }
             else
             {
-                LoggedOnAdminUser.UserId = int.TryParse(context.HttpContext.User.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.NameIdentifier))?.Value, out var uId) ? uId : 0;
-                LoggedOnAdminUser.UserName = context.HttpContext.User.Claims.FirstOrDefault(x => x.Type.Equals("USER_NAME"))?.Value;
-                LoggedOnAdminUser.DisplayName = context.HttpContext.User.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Name))?.Value;
-                LoggedOnAdminUser.RoleId = int.TryParse(context.HttpContext.User.Claims.FirstOrDefault(x => x.Type.Equals("ROLE_ID"))?.Value, out var rId) ? rId : 0;
-                LoggedOnAdminUser.RoleName = context.HttpContext.User.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Role))?.Value;
+                //LoggedOnUser.UserId = int.TryParse(context.HttpContext.User.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.NameIdentifier))?.Value, out var uId) ? uId : 0;
+                //LoggedOnUser.UserName = context.HttpContext.User.Claims.FirstOrDefault(x => x.Type.Equals("USER_NAME"))?.Value;
+                //LoggedOnUser.DisplayName = context.HttpContext.User.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Name))?.Value;
+                //LoggedOnUser.RoleId = int.TryParse(context.HttpContext.User.Claims.FirstOrDefault(x => x.Type.Equals("ROLE_ID"))?.Value, out var rId) ? rId : 0;
+                //LoggedOnUser.RoleName = context.HttpContext.User.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Role))?.Value;
             }
 
         }

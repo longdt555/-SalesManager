@@ -9,8 +9,8 @@
         #endregion
 
         public const string UltimateKey = "lu140815";
-        public const string PRO_API_SECRET_EG = "PRO_API_SECRET_EG";
-        public const string PRO_API_KEY_EG = "PRO_API_SECRET_EG";
+        public const string ProApiSecretEg = "PRO_API_SECRET_EG";
+        public const string ProApiKeyEg = "PRO_API_SECRET_EG";
         #region subscriber status
         public const int ReceiveNews = 1;
         public const int NotReceived = 0;
@@ -89,68 +89,68 @@
         #endregion
 
         #region invalid
-        public const string ErrorRegisterUserNameInvalid = "ERROR.REGISTER.USERNAME_INVALID";
-        public const string ErrorContainsSpecialCharacter = "ERROR.CONTAINS.SPECIAL_CHARACTER";
-        public const string ErrorRegisterEmailInvalid = "ERROR.REGISTER.EMAIL_INVALID";
-        public const string ErrorRegisterPasswordInvalid = "ERROR.REGISTER.PASSWORD_INVALID";
-        public const string ErrorTokenInvalid = "ERROR.TOKEN.INVALID";
-        public const string ErrorTokenExpired = "ERROR.TOKEN.EXPIRED";
-        public const string ErrorRegisterPasswordNotMatch = "ERROR.REGISTER.PASSWORD_NOT_MATCH";
-        public const string ErrorOutOfStock = "ERROR.ADD.OUT_OF_STOCK";
-        public const string ErrorCartEmpty = "ERROR.ADD.CART_EMPTY";
-        public const string ErrorTransactionCancelled = "ERROR.TRANSACTION.CANCELLED";
-        public const string ErrorTransactionCompleted = "ERROR.TRANSACTION.COMPLETED";
+        public const string RegisterUserNameInvalid = "ERROR.REGISTER.USERNAME_INVALID";
+        public const string ContainsSpecialCharacter = "ERROR.CONTAINS.SPECIAL_CHARACTER";
+        public const string RegisterEmailInvalid = "ERROR.REGISTER.EMAIL_INVALID";
+        public const string RegisterPasswordInvalid = "ERROR.REGISTER.PASSWORD_INVALID";
+        public const string TokenInvalid = "ERROR.TOKEN.INVALID";
+        public const string TokenExpired = "ERROR.TOKEN.EXPIRED";
+        public const string RegisterPasswordNotMatch = "ERROR.REGISTER.PASSWORD_NOT_MATCH";
+        public const string OutOfStock = "ERROR.ADD.OUT_OF_STOCK";
+        public const string CartEmpty = "ERROR.ADD.CART_EMPTY";
+        public const string TransactionCancelled = "ERROR.TRANSACTION.CANCELLED";
+        public const string TransactionCompleted = "ERROR.TRANSACTION.COMPLETED";
         #endregion
 
         #region length ckecking
-        public const string ErrorTextLengthInvalid = "ERROR.TEXT.LENGTH_2_255";
-        public const string ErrorTextMaxLengthInvalid = "ERROR.TEXT.MAX_LENGTH_500";
+        public const string TextLengthInvalid = "ERROR.TEXT.LENGTH_2_255";
+        public const string TextMaxLengthInvalid = "ERROR.TEXT.MAX_LENGTH_500";
         #endregion
 
         #region required
-        public const string ErrorRegisterLocationIdRequired = "ERROR.REGISTER.LOCATION_ID_REQUIRED";
-        public const string ErrorRegisterBannerIdRequired = "ERROR.REGISTER.BANNER_ID_REQUIRED";
-        public const string ErrorRegisterBannerTypeIdRequired = "ERROR.REGISTER.BANNER_TYPE_ID_REQUIRED";
-        public const string ErrorRegisterAddressRequired = "ERROR.REGISTER.ADDRESS_REQUIRED";
-        public const string ErrorRegisterIdRequired = "ERROR.REGISTER.ID_REQUIRED";
-        public const string ErrorRegisterCodeRequired = "ERROR.REGISTER.CODE_REQUIRED";
-        public const string ErrorRegisterLocationRequired = "ERROR.REGISTER.LOCATION_REQUIRED";
-        public const string ErrorRegisterTitleRequired = "ERROR.REGISTER.TITLE_REQUIRED";
-        public const string ErrorCreateUserIdRequired = "ERROR.CREATE.USER_ID_REQUIRED";
-        public const string ErrorCreateCardTypeIdRequired = "ERROR.CREATE.CARD_TYPE_ID_REQUIRED";
-        public const string ErrorCreateNameRequired = "ERROR.CREATE.NAME_REQUIRED";
-        public const string ErrorCreateValueRequired = "ERROR.CREATE.VALUE_REQUIRED";
-        public const string ErrorCreateEmailRequired = "ERROR.CREATE.EMAIL_REQUIRED";
-        public const string ErrorCreateFirstNameRequired = "ERROR.CREATE.FIRSTNAME_REQUIRED";
-        public const string ErrorCreateLastNameRequired = "ERROR.CREATE.LASTNAME_REQUIRED";
-        public const string ErrorCreateDateOfBirthRequired = "ERROR.CREATE.DATE_OF_BIRTH_REQUIRED";
-        public const string ErrorCreateUserNameRequired = "ERROR.CREATE.USERNAME_REQUIRED";
-        public const string ErrorCreateImageRequired = "ERROR.CREATE.IMAGE_REQUIRED";
-        public const string ErrorCreateTransferableRequired = "ERROR.CREATE.TRANSFERABLE_REQUIRED";
-        public const string ErrorCreateTransferFeeRequired = "ERROR.CREATE.TRANSFER_FEE_REQUIRED";
-        public const string ErrorCreateTargetClientRequired = "ERROR.CREATE.TARGET_CLIENT_REQUIRED";
-        public const string ErrorCreateExpiredRequired = "ERROR.CREATE.EXPIRED_REQUIRED";
-        public const string ErrorCreateActivationDateRequired = "ERROR.CREATE.ACTIVATION_DATE_REQUIRED";
-        public const string ErrorCreateDurationRequired = "ERROR.CREATE.DURATION_REQUIRED";
-        public const string ErrorCreatePasswordRequired = "ERROR.REGISTER.PASSWORD_REQUIRED";
-        public const string ErrorCreateTokenOrPasswordRequired = "ERROR.REGISTER.TOKEN_OR_PASSWORD_REQUIRED";
-        public const string ErrorCreateOwnerIdentificationRequired = "ERROR.CREATE.OWNER_IDENTIFICATION_REQUIRED";
-        public const string ErrorCreateTokenRequired = "ERROR.CREATE.TOKEN_REQUIRED";
+        public const string RegisterLocationIdRequired = "ERROR.REGISTER.LOCATION_ID_REQUIRED";
+        public const string RegisterBannerIdRequired = "ERROR.REGISTER.BANNER_ID_REQUIRED";
+        public const string RegisterBannerTypeIdRequired = "ERROR.REGISTER.BANNER_TYPE_ID_REQUIRED";
+        public const string RegisterAddressRequired = "ERROR.REGISTER.ADDRESS_REQUIRED";
+        public const string RegisterIdRequired = "ERROR.REGISTER.ID_REQUIRED";
+        public const string RegisterCodeRequired = "ERROR.REGISTER.CODE_REQUIRED";
+        public const string RegisterLocationRequired = "ERROR.REGISTER.LOCATION_REQUIRED";
+        public const string RegisterTitleRequired = "ERROR.REGISTER.TITLE_REQUIRED";
+        public const string CreateUserIdRequired = "ERROR.CREATE.USER_ID_REQUIRED";
+        public const string CreateCardTypeIdRequired = "ERROR.CREATE.CARD_TYPE_ID_REQUIRED";
+        public const string CreateNameRequired = "ERROR.CREATE.NAME_REQUIRED";
+        public const string CreateValueRequired = "ERROR.CREATE.VALUE_REQUIRED";
+        public const string CreateEmailRequired = "ERROR.CREATE.EMAIL_REQUIRED";
+        public const string CreateFirstNameRequired = "ERROR.CREATE.FIRSTNAME_REQUIRED";
+        public const string CreateLastNameRequired = "ERROR.CREATE.LASTNAME_REQUIRED";
+        public const string CreateDateOfBirthRequired = "ERROR.CREATE.DATE_OF_BIRTH_REQUIRED";
+        public const string CreateUserNameRequired = "ERROR.CREATE.USERNAME_REQUIRED";
+        public const string CreateImageRequired = "ERROR.CREATE.IMAGE_REQUIRED";
+        public const string CreateTransferableRequired = "ERROR.CREATE.TRANSFERABLE_REQUIRED";
+        public const string CreateTransferFeeRequired = "ERROR.CREATE.TRANSFER_FEE_REQUIRED";
+        public const string CreateTargetClientRequired = "ERROR.CREATE.TARGET_CLIENT_REQUIRED";
+        public const string CreateExpiredRequired = "ERROR.CREATE.EXPIRED_REQUIRED";
+        public const string CreateActivationDateRequired = "ERROR.CREATE.ACTIVATION_DATE_REQUIRED";
+        public const string CreateDurationRequired = "ERROR.CREATE.DURATION_REQUIRED";
+        public const string CreatePasswordRequired = "ERROR.REGISTER.PASSWORD_REQUIRED";
+        public const string CreateTokenOrPasswordRequired = "ERROR.REGISTER.TOKEN_OR_PASSWORD_REQUIRED";
+        public const string CreateOwnerIdentificationRequired = "ERROR.CREATE.OWNER_IDENTIFICATION_REQUIRED";
+        public const string CreateTokenRequired = "ERROR.CREATE.TOKEN_REQUIRED";
         #endregion
 
         #region exist
-        public const string ErrorCreateNameExist = "ERROR.CREATE.NAME_EXISTS";
-        public const string ErrorCreateUserNameExist = "ERROR.CREATE.USERNAME_EXISTS";
-        public const string ErrorCreateEmailExist = "ERROR.CREATE.EMAIL_EXISTS";
-        public const string ErrorEmailExist = "ERROR.EMAIL_EXISTS";
-        public const string ErrorFacebookIdExist = "ERROR.FACEBOOK_ID_EXISTS";
-        public const string ErrorCreateRecordExist = "ERROR.CREATE.RECORD_EXISTS";
-        public const string ErrorCreateObjectExist = "ERROR.CREATE.OBJECT_EXISTS";
+        public const string CreateNameExist = "ERROR.CREATE.NAME_EXISTS";
+        public const string CreateUserNameExist = "ERROR.CREATE.USERNAME_EXISTS";
+        public const string CreateEmailExist = "ERROR.CREATE.EMAIL_EXISTS";
+        public const string EmailExist = "ERROR.EMAIL_EXISTS";
+        public const string FacebookIdExist = "ERROR.FACEBOOK_ID_EXISTS";
+        public const string CreateRecordExist = "ERROR.CREATE.RECORD_EXISTS";
+        public const string CreateObjectExist = "ERROR.CREATE.OBJECT_EXISTS";
         #endregion
 
         #region not found
         public const string ObjectNotFound = "OBJECT.NOT_FOUND";
-        public const string ErrorTokenNotFound = "ERROR.TOKEN.NOT_FOUND";
+        public const string TokenNotFound = "ERROR.TOKEN.NOT_FOUND";
         #endregion
 
         #region permission checking
