@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Lib.Data.Entity
 {
@@ -14,7 +12,7 @@ namespace Lib.Data.Entity
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
         public string Description { get; set; }
-        public int Quanity { get; set; }
+        public int Quantity { get; set; }
         public virtual IEnumerable<Order> Orders { get; set; }
     }
 }

@@ -21,7 +21,9 @@ namespace Lib.Data.DataContext
                         Id = 1,
                         IsDeleted = false,
                         Name = "YONG",
-                        Address = "HN"
+                        Address = "HN",
+                        UserName ="YongDT",
+                        Password= "836e5d18d15f021bb70d5f97f0a1c0b0"
                     }
             );
 
@@ -56,7 +58,7 @@ namespace Lib.Data.DataContext
                        Description = "Timeless appeal. Effortless style. Everyday versatility. For over 50 years and counting, adidas Stan Smith Shoes have continued to hold their place as an icon. " +
                        "This pair shows off a fresh redesign as part of adidas' commitment to use only recycled polyester by 2024. Plus, they have an outsole made from rubber waste add to the classic style. " +
                        "This product is made with Primegreen, a series of high - performance recycled materials. 50 % of upper is recycled content. No virgin polyester.",
-                       Quanity = 100
+                       Quantity = 100
                    },
                    new Product
                    {
@@ -67,7 +69,7 @@ namespace Lib.Data.DataContext
                        Price = 1279000,
                        Description = "The Nike Rise 365 Top delivers versatile performance for everyday running. Designed for lightweight mobility, " +
                        "the top features soft fabric with increased ventilation where you need it most.",
-                       Quanity = 100
+                       Quantity = 100
                    }
            );
             #endregion

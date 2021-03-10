@@ -83,6 +83,11 @@ namespace Lib.Common.Helpers
             }
             return timeChat;
         }
+
+        public static bool ValidToken(string accessToken)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

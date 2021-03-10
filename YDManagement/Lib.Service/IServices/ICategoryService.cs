@@ -13,5 +13,6 @@ namespace Lib.Service.IServices
         void Delete(int id);
         void DeleteMany(List<int> ids);
         int GetRecordCount();
+        void Delete(CategoryDto data);
     }
 }

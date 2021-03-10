@@ -1,7 +1,6 @@
 ﻿using Lib.Service.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -9,6 +8,7 @@ namespace YDManagement.APIControllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -18,7 +18,7 @@ namespace YDManagement.APIControllers
         }
 
         // GET: api/<ProductController>
-        [AllowAnonymous]
+        [Authorization.Authorize]
         [HttpGet]
         public IActionResult GetAll()
         {

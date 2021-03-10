@@ -14,12 +14,15 @@ namespace YDManagement.Helpers
         {
             CreateMap<ProductDto, Product>();
             CreateMap<Product, ProductDto>();
-            CreateMap<CategoryDto, Category>();
-            CreateMap<Category, CategoryDto>();
+
             CreateMap<OrderDto, Order>();
             CreateMap<Order, OrderDto>();
-            CreateMap<CustomerDto,Customer>();
+
+            CreateMap<CustomerDto, Customer>();
             CreateMap<Customer, CustomerDto>();
+
+            CreateMap<CategoryDto, Category>();
+            CreateMap<Category, CategoryDto>();
         }
     }
 }

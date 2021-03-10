@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace Lib.Service.Services
 {
-   public class CategoryService : ICategoryService
+    public class CategoryService : ICategoryService
     {
         private readonly YDMApiDbContext _context;
         public CategoryService(YDMApiDbContext context)
@@ -37,6 +37,12 @@ namespace Lib.Service.Services
             _context.Categories.Update(data);
             _context.SaveChanges();
         }
+
+        public void Delete(CategoryDto data)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void DeleteMany(List<int> ids)
         {
             var data = _context.Categories.Where(x => ids.Contains(x.Id));

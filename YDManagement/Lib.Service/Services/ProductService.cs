@@ -57,8 +57,25 @@ namespace Lib.Service.Services
                 Id = x.Id,
                 Name = x.Name,
                 Price = x.Price,
+                Quantity = x.Quantity,
                 Description = x.Description,
-                Category = x.Category != null ? new CategoryDto() { } : null
+                CreatedBy = x.CreatedBy,
+                CreatedDate = x.CreatedDate,
+                UpdatedBy = x.UpdatedBy,
+                UpdatedDate = x.UpdatedDate,
+                IsDeleted = x.IsDeleted,
+                CategoryId = x.Category != null ? x.Category.Id : 0,
+                Category = x.Category != null ? new CategoryDto()
+                {
+                    Id = x.Category.Id,
+                    Name = x.Category.Name,
+                    Description = x.Category.Description,
+                    CreatedBy = x.Category.CreatedBy,
+                    CreatedDate = x.Category.CreatedDate,
+                    UpdatedBy = x.Category.UpdatedBy,
+                    UpdatedDate = x.Category.UpdatedDate,
+                    IsDeleted = x.Category.IsDeleted,
+                } : null
             });
         }
 
@@ -69,14 +86,35 @@ namespace Lib.Service.Services
                 Id = x.Id,
                 Name = x.Name,
                 Price = x.Price,
+                Quantity = x.Quantity,
                 Description = x.Description,
-                Category = x.Category != null ? new CategoryDto() { } : null
+                CreatedBy = x.CreatedBy,
+                CreatedDate = x.CreatedDate,
+                UpdatedBy = x.UpdatedBy,
+                UpdatedDate = x.UpdatedDate,
+                IsDeleted = x.IsDeleted,
+                CategoryId = x.Category != null ? x.Category.Id : 0,
+                Category = x.Category != null ? new CategoryDto() {
+                    Id = x.Category.Id,
+                    Name = x.Category.Name,
+                    Description = x.Category.Description,
+                    CreatedBy = x.Category.CreatedBy,
+                    CreatedDate = x.Category.CreatedDate,
+                    UpdatedBy = x.Category.UpdatedBy,
+                    UpdatedDate = x.Category.UpdatedDate,
+                    IsDeleted = x.Category.IsDeleted,
+                } : null
             }).FirstOrDefault();
         }
 
         public int GetRecordCount()
         {
             return _context.Products.Where(x => x.IsDeleted == false).Count();
+        }
+
+        public bool IsOutOfStock(int id, int? quantity = 0)
+        {
+            return _context.Products.Any(x => x.Id == id && x.Quantity < quantity && x.IsDeleted == false);
         }
 
         public IQueryable<ProductDto> Query()
@@ -96,7 +134,7 @@ namespace Lib.Service.Services
                 throw new AppException(AppCodeStatus.ObjectNotFound);
 
             exObj.Price = obj.Price;
-            exObj.Quanity = obj.Quanity;
+            exObj.Quantity = obj.Quantity;
             exObj.Description = obj.Description;
             exObj.CategoryId = obj.CategoryId;
 

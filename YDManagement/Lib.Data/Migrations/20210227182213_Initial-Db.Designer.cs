@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lib.Data.Migrations
 {
     [DbContext(typeof(YDMApiDbContext))]
-    [Migration("20210227083519_Initial-Seed-Data")]
-    partial class InitialSeedData
+    [Migration("20210227182213_Initial-Db")]
+    partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -92,11 +92,17 @@ namespace Lib.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<string>("Password")
+                        .HasColumnType("text");
+
                     b.Property<int>("UpdatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -110,7 +116,9 @@ namespace Lib.Data.Migrations
                             CreatedBy = 0,
                             IsDeleted = false,
                             Name = "YONG",
-                            UpdatedBy = 0
+                            Password = "836e5d18d15f021bb70d5f97f0a1c0b0",
+                            UpdatedBy = 0,
+                            UserName = "YongDT"
                         });
                 });
 
@@ -136,6 +144,9 @@ namespace Lib.Data.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<int>("UpdatedBy")
@@ -180,7 +191,7 @@ namespace Lib.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Quanity")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<int>("UpdatedBy")
@@ -205,7 +216,7 @@ namespace Lib.Data.Migrations
                             IsDeleted = false,
                             Name = "STAN SMITH",
                             Price = 2300000m,
-                            Quanity = 100,
+                            Quantity = 100,
                             UpdatedBy = 0
                         },
                         new
@@ -217,7 +228,7 @@ namespace Lib.Data.Migrations
                             IsDeleted = false,
                             Name = "Nike Rise 365 BRS",
                             Price = 1279000m,
-                            Quanity = 100,
+                            Quantity = 100,
                             UpdatedBy = 0
                         });
                 });
