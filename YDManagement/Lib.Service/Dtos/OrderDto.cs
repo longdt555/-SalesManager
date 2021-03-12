@@ -5,11 +5,11 @@ namespace Lib.Service.Dtos
 {
     public class OrderDto : BaseDto
     {
-        public Guid CustomerId { get; set; }
+        public int CustomerId { get; set; }
         public Customer Customer { get; set; }
-        public Guid ProductId { get; set; }
+        public int ProductId { get; set; }
         public ProductDto Product { get; set; }
-        public decimal Amount { get; set; }
-        public int Quantity { get; set; }
+        public decimal Amount { get; set; } = 0;
+        public int Quantity { get; set; } = 0;
     }
 }

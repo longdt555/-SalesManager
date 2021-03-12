@@ -8,10 +8,10 @@ namespace Lib.Data.Entity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
-        public Guid CreatedBy { get; set; }
+        public int Id { get; set; }
+        public int? CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
-        public Guid UpdatedBy { get; set; }
+        public int? UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool IsDeleted { get; set; } = false;
 

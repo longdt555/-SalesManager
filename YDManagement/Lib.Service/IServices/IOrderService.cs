@@ -9,8 +9,8 @@ namespace Lib.Service.IServices
     {
         Order Create(Order obj);
         void Update(Order obj);
-        void Delete(Guid id);
-        void DeleteMany(List<Guid> ids);
+        void Delete(int id);
+        void DeleteMany(List<int> ids);
         int GetRecordCount();
     }
 }

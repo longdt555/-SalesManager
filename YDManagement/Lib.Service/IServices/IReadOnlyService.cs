@@ -10,7 +10,7 @@ namespace Lib.Service.IServices
         /// <summary>Gets the entity with the specified unique identifier</summary>
         /// <param name="id">The unique identifier of the entity to be retrieved</param>
         /// <returns>The entity with the specified unique identifier or null</returns>
-        TEntity GetById(Guid id);
+        TEntity GetById(int id);
 
 
         /// <summary>Gets all entities in the res</summary>

@@ -9,9 +9,9 @@ namespace Lib.Service.IServices
     {
         Product Create(Product obj);
         void Update(Product obj);
-        void Delete(Guid id);
-        void DeleteMany(List<Guid> ids);
+        void Delete(int id);
+        void DeleteMany(List<int> ids);
         int GetRecordCount();
-        bool IsOutOfStock(Guid id, int? quantity = 0);
+        bool IsOutOfStock(int? id = 0, int? quantity = 0);
     }
 }

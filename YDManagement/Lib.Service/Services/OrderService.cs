@@ -25,7 +25,7 @@ namespace Lib.Service.Services
             return obj;
         }
 
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             var data = _context.Orders.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
             if (data == null) return;
@@ -34,8 +34,8 @@ namespace Lib.Service.Services
             _context.Orders.Update(data);
             _context.SaveChanges();
         }
-        
-        public void DeleteMany(List<Guid> ids)
+
+        public void DeleteMany(List<int> ids)
         {
             var data = _context.Orders.Where(x => ids.Contains(x.Id));
             if (!data.Any()) return;
@@ -73,7 +73,7 @@ namespace Lib.Service.Services
             });
         }
 
-        public OrderDto GetById(Guid id)
+        public OrderDto GetById(int id)
         {
             return _context.Orders.Include(x => x.Product).Include(x => x.Customer).Where(x => x.Id == id && x.IsDeleted == false && x.Product.IsDeleted == false && x.Customer.IsDeleted == false).Select(x => new OrderDto()
             {
@@ -98,11 +98,6 @@ namespace Lib.Service.Services
                 UpdatedDate = x.UpdatedDate,
                 IsDeleted = x.IsDeleted
             }).FirstOrDefault();
-        }
-
-        public OrderDto GetById(int id)
-        {
-            throw new NotImplementedException();
         }
 
         public int GetRecordCount()

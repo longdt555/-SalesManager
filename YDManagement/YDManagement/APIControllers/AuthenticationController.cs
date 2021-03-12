@@ -70,7 +70,6 @@ namespace YDManagement.APIControllers
                         return response;
                 }
             }
-
         }
 
         /// <summary>

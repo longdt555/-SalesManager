@@ -3,12 +3,11 @@ using System;
 using Lib.Data.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Lib.Data.Migrations
 {
     [DbContext(typeof(YdmApiDbContext))]
-    partial class YdmApiDbContextModelSnapshot : ModelSnapshot
+    class YdmApiDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using Lib.Data.Entity;
+﻿using Lib.Data.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lib.Data.DataContext

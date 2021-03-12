@@ -49,7 +49,7 @@ namespace Lib.Service.Services
             throw new NotImplementedException();
         }
 
-        public CustomerDto GetById(Guid id)
+        public CustomerDto GetById(int id)
         {
             throw new NotImplementedException();
         }

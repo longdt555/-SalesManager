@@ -37,7 +37,7 @@ namespace YDManagement.APIControllers
 
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
-        public IActionResult GetById(Guid id)
+        public IActionResult GetById(int id)
         {
             var data = _orderService.GetById(id);
             return Ok(data);
