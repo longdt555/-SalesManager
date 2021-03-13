@@ -40,8 +40,8 @@ namespace Lib.Service.Services
 
             var data = _context.Customers
                 .SingleOrDefault(x => x.UserName.Trim().Replace(" ", "").ToLower().Equals(obj.UserName.ToLower()) && Security.EncryptKey(obj.Password).Equals(x.Password));
-            CurrentContext.LoggedOnClientUser = data;
-            return data;
+
+            return YdConnectorSaver.Add(data);
         }
 
         public IEnumerable<CustomerDto> GetAll()

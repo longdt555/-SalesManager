@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using Lib.Common.Global;
+using YDManagement.Helpers;
 
 namespace YDManagement.APIControllers
 {
@@ -48,10 +48,11 @@ namespace YDManagement.APIControllers
         public IActionResult ClientCreate([FromBody] OrderDto model)
         {
             IActionResult response = Unauthorized();
+            var result = new JResultHelper();
             try
             {
                 var today = DateTime.Now;
-                var currentUser = CurrentContext.LoggedOnClientUser.Id;
+                var currentUser = ClientCurrentUser.Id;
                 var data = _mapper.Map<Order>(model);
                 if (_productService.IsOutOfStock(data.ProductId, data.Quantity))
                     return Ok(new { StatusCode = StatusCodes.Status409Conflict, Message = AppCodeStatus.OutOfStock });
@@ -84,7 +85,7 @@ namespace YDManagement.APIControllers
             try
             {
                 var today = DateTime.Now;
-                var currentUser = CurrentContext.LoggedOnClientUser.Id;
+                var currentUser = ClientCurrentUser.Id;
                 var data = _mapper.Map<Order>(model);
                 data.CreatedBy = currentUser;
                 data.CreatedDate = today;

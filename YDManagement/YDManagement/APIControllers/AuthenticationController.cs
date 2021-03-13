@@ -13,7 +13,9 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Lib.Common.Global;
 using Lib.Data.Entity;
+using YDManagement.Helpers;
 
 namespace YDManagement.APIControllers
 {
@@ -40,32 +42,33 @@ namespace YDManagement.APIControllers
         public IActionResult ClientLogin([FromBody] UserPortalDto model)
         {
             IActionResult response = Unauthorized();
+            var result = new JResultHelper();
             try
             {
                 var data = _customerService.Authenticate(model);
                 if (data == null) return response;
-
+                CurrentContext.SetLoggedOnClientUser(data);
                 var tokenStr = GenerateAccessToken(data, model.RememberMe);
                 if (tokenStr != null)
                     HttpContext.Session.SetString("JWToken", tokenStr);  //Save token in session object
-
-                return Ok(new
-                {
-                    accessToken = tokenStr,
-                    data
-                });
+              
+                result.SetKey(tokenStr);
+                result.SetData(data);
+                result.SetStatusSuccess();
+                return Ok(result);
             }
             catch (AppException ex)
             {
+                result.SetMessage(ex.Message);
+                result.SetStatusFailed();
                 switch (ex.Message)
                 {
                     case AppCodeStatus.CreateUserNameRequired:
                     case AppCodeStatus.CreatePasswordRequired:
-                        return Ok(new { StatusCode = StatusCodes.Status411LengthRequired, ex.Message });
                     case AppCodeStatus.TextLengthInvalid:
                     case AppCodeStatus.ContainsSpecialCharacter:
                     case AppCodeStatus.RegisterPasswordInvalid:
-                        return Ok(new { StatusCode = StatusCodes.Status409Conflict, ex.Message });
+                        return Ok(result);
                     default:
                         return response;
                 }
@@ -79,6 +82,7 @@ namespace YDManagement.APIControllers
         [HttpPost("ClientLogout")]
         public IActionResult ClientLogout()
         {
+            Helpers.AppHelpers.RemoveCurrentUserData();
             HttpContext.Session.Clear();
             return NoContent();
         }

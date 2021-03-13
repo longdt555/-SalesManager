@@ -1,5 +1,4 @@
-﻿using System;
-using Lib.Data.Entity;
+﻿using Lib.Data.Entity;
 
 namespace Lib.Service.Dtos
 {

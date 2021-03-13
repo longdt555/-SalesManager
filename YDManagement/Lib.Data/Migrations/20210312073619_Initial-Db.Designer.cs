@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lib.Data.Migrations
 {
     [DbContext(typeof(YdmApiDbContext))]
-    [Migration("20210310075128_Initial-DB")]
-    partial class InitialDB
+    [Migration("20210312073619_Initial-Db")]
+    partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,13 +21,12 @@ namespace Lib.Data.Migrations
 
             modelBuilder.Entity("Lib.Data.Entity.Category", b =>
                 {
-                    b.Property<byte[]>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varbinary(16)");
+                        .HasColumnType("int");
 
-                    b.Property<byte[]>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("varbinary(16)");
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime");
@@ -41,9 +40,8 @@ namespace Lib.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<byte[]>("UpdatedBy")
-                        .IsRequired()
-                        .HasColumnType("varbinary(16)");
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime");
@@ -51,20 +49,35 @@ namespace Lib.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("category");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Adidas is a multinational firm which was founded in 1948. The firs specialized in designing and manufacturing of sports clothing and accessories.",
+                            IsDeleted = false,
+                            Name = "Adidas"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "It was founded in 1964 as Blue Ribbon Sports by Bill Bowerman, a track-and-field coach at the University of Oregon, and his former student Phil Knight. They opened their first retail outlet in 1966 and launched the Nike brand shoe in 1972.",
+                            IsDeleted = false,
+                            Name = "Nike"
+                        });
                 });
 
             modelBuilder.Entity("Lib.Data.Entity.Customer", b =>
                 {
-                    b.Property<byte[]>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varbinary(16)");
+                        .HasColumnType("int");
 
                     b.Property<string>("Address")
                         .HasColumnType("text");
 
-                    b.Property<byte[]>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("varbinary(16)");
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime");
@@ -78,9 +91,8 @@ namespace Lib.Data.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("text");
 
-                    b.Property<byte[]>("UpdatedBy")
-                        .IsRequired()
-                        .HasColumnType("varbinary(16)");
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime");
@@ -91,41 +103,48 @@ namespace Lib.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("customer");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "HN",
+                            IsDeleted = false,
+                            Name = "YONG",
+                            Password = "e10adc3949ba59abbe56e057f20f883e",
+                            UserName = "yongdt"
+                        });
                 });
 
             modelBuilder.Entity("Lib.Data.Entity.Order", b =>
                 {
-                    b.Property<byte[]>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varbinary(16)");
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<byte[]>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("varbinary(16)");
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime");
 
-                    b.Property<byte[]>("CustomerId")
-                        .IsRequired()
-                        .HasColumnType("varbinary(16)");
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<byte[]>("ProductId")
-                        .IsRequired()
-                        .HasColumnType("varbinary(16)");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<byte[]>("UpdatedBy")
-                        .IsRequired()
-                        .HasColumnType("varbinary(16)");
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime");
@@ -141,17 +160,15 @@ namespace Lib.Data.Migrations
 
             modelBuilder.Entity("Lib.Data.Entity.Product", b =>
                 {
-                    b.Property<byte[]>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varbinary(16)");
+                        .HasColumnType("int");
 
-                    b.Property<byte[]>("CategoryId")
-                        .IsRequired()
-                        .HasColumnType("varbinary(16)");
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
 
-                    b.Property<byte[]>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("varbinary(16)");
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime");
@@ -171,9 +188,8 @@ namespace Lib.Data.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<byte[]>("UpdatedBy")
-                        .IsRequired()
-                        .HasColumnType("varbinary(16)");
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime");
@@ -183,6 +199,28 @@ namespace Lib.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("product");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            Description = "Timeless appeal. Effortless style. Everyday versatility. For over 50 years and counting, adidas Stan Smith Shoes have continued to hold their place as an icon. This pair shows off a fresh redesign as part of adidas' commitment to use only recycled polyester by 2024. Plus, they have an outsole made from rubber waste add to the classic style. This product is made with Primegreen, a series of high - performance recycled materials. 50 % of upper is recycled content. No virgin polyester.",
+                            IsDeleted = false,
+                            Name = "STAN SMITH",
+                            Price = 2300000m,
+                            Quantity = 100
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 2,
+                            Description = "The Nike Rise 365 Top delivers versatile performance for everyday running. Designed for lightweight mobility, the top features soft fabric with increased ventilation where you need it most.",
+                            IsDeleted = false,
+                            Name = "Nike Rise 365 BRS",
+                            Price = 1279000m,
+                            Quantity = 100
+                        });
                 });
 
             modelBuilder.Entity("Lib.Data.Entity.Order", b =>
@@ -204,9 +242,7 @@ namespace Lib.Data.Migrations
                 {
                     b.HasOne("Lib.Data.Entity.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
                 });
 #pragma warning restore 612, 618
         }

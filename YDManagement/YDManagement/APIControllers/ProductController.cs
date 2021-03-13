@@ -1,5 +1,4 @@
-﻿using System;
-using Lib.Service.IServices;
+﻿using Lib.Service.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +25,7 @@ namespace YDManagement.APIControllers
             var data = _productService.GetAll();
             return Ok(data);
         }
+
 
         // GET api/<ProductController>/5
         [HttpGet("GetById/{id}")]

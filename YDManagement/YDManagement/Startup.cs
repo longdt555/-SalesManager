@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Lib.Common.Global;
 using YDManagement.Helpers;
 
 namespace YDManagement
@@ -131,7 +132,18 @@ namespace YDManagement
                 options.Events = new JwtBearerEvents
                 {
                     OnAuthenticationFailed = context => Task.CompletedTask,
-                    OnTokenValidated = context => Task.CompletedTask
+                    OnTokenValidated = context =>
+                    {
+                        var userId = int.TryParse(context.Principal.Identities.FirstOrDefault()?.Claims.FirstOrDefault(x => x.Type.Equals("USERID"))?.Value, out var id) ? id : 0;
+                        var user = YdConnectorSaver.GetById(userId);
+                        if (user == null)
+                        {
+                            // return unauthorized if user no longer exists
+                            context.Fail("Unauthorized");
+                        }
+                        CurrentContext.SetLoggedOnClientUser(user);
+                        return Task.CompletedTask;
+                    }
                 };
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
