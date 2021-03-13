@@ -12,16 +12,16 @@ namespace Lib.Service.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly YDMApiDbContext _context;
-        public CategoryService(YDMApiDbContext context)
+        private readonly YdmApiDbContext _context;
+        public CategoryService(YdmApiDbContext context)
         {
             _context = context;
         }
         public Category Create(Category obj)
         {
             #region validate
-            if (string.IsNullOrEmpty(obj.Name))
-                throw new AppException(AppCodeStatus.ErrorCreateNameRequired);
+            //if (string.IsNullOrEmpty(obj.Name))
+            //    throw new AppException(AppCodeStatus.ErrorCreateNameRequired);
             #endregion
 
             _context.Categories.Add(obj);
@@ -83,8 +83,8 @@ namespace Lib.Service.Services
         public void Update(Category obj)
         {
             #region validate
-            if (string.IsNullOrEmpty(obj.Name))
-                throw new AppException(AppCodeStatus.ErrorCreateNameRequired);
+            //if (string.IsNullOrEmpty(obj.Name))
+            //    throw new AppException(AppCodeStatus.ErrorCreateNameRequired);
             #endregion
 
             var exObj = _context.Categories.FirstOrDefault(x => x.Id == obj.Id && x.IsDeleted == false);
