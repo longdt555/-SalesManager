@@ -3,12 +3,11 @@ using System;
 using Lib.Data.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Lib.Data.Migrations
 {
-    [DbContext(typeof(YDMApiDbContext))]
-    partial class YDMApiDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(YdmApiDbContext))]
+    partial class YdmApiDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +22,7 @@ namespace Lib.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("CreatedBy")
+                    b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedDate")
@@ -38,7 +37,7 @@ namespace Lib.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int>("UpdatedBy")
+                    b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -52,20 +51,16 @@ namespace Lib.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedBy = 0,
                             Description = "Adidas is a multinational firm which was founded in 1948. The firs specialized in designing and manufacturing of sports clothing and accessories.",
                             IsDeleted = false,
-                            Name = "Adidas",
-                            UpdatedBy = 0
+                            Name = "Adidas"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedBy = 0,
                             Description = "It was founded in 1964 as Blue Ribbon Sports by Bill Bowerman, a track-and-field coach at the University of Oregon, and his former student Phil Knight. They opened their first retail outlet in 1966 and launched the Nike brand shoe in 1972.",
                             IsDeleted = false,
-                            Name = "Nike",
-                            UpdatedBy = 0
+                            Name = "Nike"
                         });
                 });
 
@@ -78,7 +73,7 @@ namespace Lib.Data.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("text");
 
-                    b.Property<int>("CreatedBy")
+                    b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedDate")
@@ -93,7 +88,7 @@ namespace Lib.Data.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("text");
 
-                    b.Property<int>("UpdatedBy")
+                    b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -111,12 +106,10 @@ namespace Lib.Data.Migrations
                         {
                             Id = 1,
                             Address = "HN",
-                            CreatedBy = 0,
                             IsDeleted = false,
                             Name = "YONG",
-                            Password = "836e5d18d15f021bb70d5f97f0a1c0b0",
-                            UpdatedBy = 0,
-                            UserName = "YongDT"
+                            Password = "e10adc3949ba59abbe56e057f20f883e",
+                            UserName = "yongdt"
                         });
                 });
 
@@ -129,7 +122,7 @@ namespace Lib.Data.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("CreatedBy")
+                    b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedDate")
@@ -147,7 +140,7 @@ namespace Lib.Data.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("UpdatedBy")
+                    b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -168,10 +161,10 @@ namespace Lib.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CreatedBy")
+                    b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedDate")
@@ -192,7 +185,7 @@ namespace Lib.Data.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("UpdatedBy")
+                    b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -209,25 +202,21 @@ namespace Lib.Data.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedBy = 0,
                             Description = "Timeless appeal. Effortless style. Everyday versatility. For over 50 years and counting, adidas Stan Smith Shoes have continued to hold their place as an icon. This pair shows off a fresh redesign as part of adidas' commitment to use only recycled polyester by 2024. Plus, they have an outsole made from rubber waste add to the classic style. This product is made with Primegreen, a series of high - performance recycled materials. 50 % of upper is recycled content. No virgin polyester.",
                             IsDeleted = false,
                             Name = "STAN SMITH",
                             Price = 2300000m,
-                            Quantity = 100,
-                            UpdatedBy = 0
+                            Quantity = 100
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 2,
-                            CreatedBy = 0,
                             Description = "The Nike Rise 365 Top delivers versatile performance for everyday running. Designed for lightweight mobility, the top features soft fabric with increased ventilation where you need it most.",
                             IsDeleted = false,
                             Name = "Nike Rise 365 BRS",
                             Price = 1279000m,
-                            Quantity = 100,
-                            UpdatedBy = 0
+                            Quantity = 100
                         });
                 });
 
@@ -250,9 +239,7 @@ namespace Lib.Data.Migrations
                 {
                     b.HasOne("Lib.Data.Entity.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
                 });
 #pragma warning restore 612, 618
         }

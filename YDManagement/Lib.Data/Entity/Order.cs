@@ -10,7 +10,7 @@ namespace Lib.Data.Entity
         public int ProductId { get; set; }
         public virtual Product Product { get; set; }
         [Column(TypeName = "decimal(18,2)")]
-        public decimal Amount { get; set; } = 1;
-        public int Quantity { get; set; } = 1;
+        public decimal Amount { get; set; } = 0;
+        public int Quantity { get; set; } = 0;
     }
 }

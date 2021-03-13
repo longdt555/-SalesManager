@@ -1,4 +1,5 @@
-﻿using Lib.Common;
+﻿using System;
+using Lib.Common;
 using Lib.Common.Helpers;
 using Lib.Data.DataContext;
 using Lib.Data.Entity;
@@ -12,16 +13,17 @@ namespace Lib.Service.Services
 {
     public class ProductService : IProductService
     {
-        private readonly YDMApiDbContext _context;
-        public ProductService(YDMApiDbContext context)
+        private readonly YdmApiDbContext _context;
+        public ProductService(YdmApiDbContext context)
         {
             _context = context;
         }
+
         public Product Create(Product obj)
         {
             #region validate
             if (string.IsNullOrEmpty(obj.Name))
-                throw new AppException(AppCodeStatus.ErrorCreateNameRequired);
+                throw new AppException(AppCodeStatus.CreateNameRequired);
             #endregion
 
             _context.Products.Add(obj);
@@ -52,81 +54,83 @@ namespace Lib.Service.Services
 
         public IEnumerable<ProductDto> GetAll()
         {
-            return _context.Products.Include(x => x.Category).Where(x => x.IsDeleted == false && x.Category.IsDeleted == false).Select(x => new ProductDto()
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Price = x.Price,
-                Quantity = x.Quantity,
-                Description = x.Description,
-                CreatedBy = x.CreatedBy,
-                CreatedDate = x.CreatedDate,
-                UpdatedBy = x.UpdatedBy,
-                UpdatedDate = x.UpdatedDate,
-                IsDeleted = x.IsDeleted,
-                CategoryId = x.Category != null ? x.Category.Id : 0,
-                Category = x.Category != null ? new CategoryDto()
+            return _context.Products.Include(x => x.Category)
+                .Where(x => x.IsDeleted == false && x.Category.IsDeleted == false).Select(x => new ProductDto()
                 {
-                    Id = x.Category.Id,
-                    Name = x.Category.Name,
-                    Description = x.Category.Description,
-                    CreatedBy = x.Category.CreatedBy,
-                    CreatedDate = x.Category.CreatedDate,
-                    UpdatedBy = x.Category.UpdatedBy,
-                    UpdatedDate = x.Category.UpdatedDate,
-                    IsDeleted = x.Category.IsDeleted,
-                } : null
-            });
+                    Id = x.Id,
+                    Name = x.Name,
+                    Price = x.Price,
+                    Quantity = x.Quantity,
+                    Description = x.Description,
+                    CreatedBy = x.CreatedBy,
+                    CreatedDate = x.CreatedDate,
+                    UpdatedBy = x.UpdatedBy,
+                    UpdatedDate = x.UpdatedDate,
+                    IsDeleted = x.IsDeleted,
+                    Category = x.Category != null ? new CategoryDto()
+                    {
+                        Id = x.Category.Id,
+                        Name = x.Category.Name,
+                        Description = x.Category.Description,
+                        CreatedBy = x.Category.CreatedBy,
+                        CreatedDate = x.Category.CreatedDate,
+                        UpdatedBy = x.Category.UpdatedBy,
+                        UpdatedDate = x.Category.UpdatedDate,
+                        IsDeleted = x.Category.IsDeleted,
+                    } : null
+                }).OrderBy(x => x.UpdatedDate ?? x.CreatedDate);
         }
 
         public ProductDto GetById(int id)
         {
-            return _context.Products.Include(x => x.Category).Where(x => x.IsDeleted == false && x.Id == id && x.Category.IsDeleted == false).Select(x => new ProductDto()
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Price = x.Price,
-                Quantity = x.Quantity,
-                Description = x.Description,
-                CreatedBy = x.CreatedBy,
-                CreatedDate = x.CreatedDate,
-                UpdatedBy = x.UpdatedBy,
-                UpdatedDate = x.UpdatedDate,
-                IsDeleted = x.IsDeleted,
-                CategoryId = x.Category != null ? x.Category.Id : 0,
-                Category = x.Category != null ? new CategoryDto() {
-                    Id = x.Category.Id,
-                    Name = x.Category.Name,
-                    Description = x.Category.Description,
-                    CreatedBy = x.Category.CreatedBy,
-                    CreatedDate = x.Category.CreatedDate,
-                    UpdatedBy = x.Category.UpdatedBy,
-                    UpdatedDate = x.Category.UpdatedDate,
-                    IsDeleted = x.Category.IsDeleted,
-                } : null
-            }).FirstOrDefault();
+            return _context.Products.Include(x => x.Category)
+                .Where(x => x.IsDeleted == false && x.Id == id && x.Category.IsDeleted == false).Select(x =>
+                    new ProductDto()
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        Price = x.Price,
+                        Quantity = x.Quantity,
+                        Description = x.Description,
+                        CreatedBy = x.CreatedBy,
+                        CreatedDate = x.CreatedDate,
+                        UpdatedBy = x.UpdatedBy,
+                        UpdatedDate = x.UpdatedDate,
+                        IsDeleted = x.IsDeleted,
+                        Category = x.Category != null ? new CategoryDto()
+                        {
+                            Id = x.Category.Id,
+                            Name = x.Category.Name,
+                            Description = x.Category.Description,
+                            CreatedBy = x.Category.CreatedBy,
+                            CreatedDate = x.Category.CreatedDate,
+                            UpdatedBy = x.Category.UpdatedBy,
+                            UpdatedDate = x.Category.UpdatedDate,
+                            IsDeleted = x.Category.IsDeleted,
+                        } : null
+                    }).FirstOrDefault();
         }
 
         public int GetRecordCount()
         {
-            return _context.Products.Where(x => x.IsDeleted == false).Count();
+            return _context.Products.Count(x => x.IsDeleted == false);
         }
 
-        public bool IsOutOfStock(int id, int? quantity = 0)
+        public bool IsOutOfStock(int? id = 0, int? quantity = 0)
         {
             return _context.Products.Any(x => x.Id == id && x.Quantity < quantity && x.IsDeleted == false);
         }
 
         public IQueryable<ProductDto> Query()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void Update(Product obj)
         {
             #region validate
             if (string.IsNullOrEmpty(obj.Name))
-                throw new AppException(AppCodeStatus.ErrorCreateNameRequired);
+                throw new AppException(AppCodeStatus.CreateNameRequired);
             #endregion
 
             var exObj = _context.Products.FirstOrDefault(x => x.Id == obj.Id && x.IsDeleted == false);

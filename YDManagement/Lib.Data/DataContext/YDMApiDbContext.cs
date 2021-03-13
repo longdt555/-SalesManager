@@ -1,12 +1,11 @@
-﻿using System;
-using Lib.Data.Entity;
+﻿using Lib.Data.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lib.Data.DataContext
 {
-    public class YDMApiDbContext : DbContext
+    public class YdmApiDbContext : DbContext
     {
-        public YDMApiDbContext(DbContextOptions<YDMApiDbContext> options) : base(options) { }
+        public YdmApiDbContext(DbContextOptions options) : base(options) { }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -19,11 +18,11 @@ namespace Lib.Data.DataContext
                     new Customer
                     {
                         Id = 1,
+                        UserName = "yongdt",
+                        Password = "e10adc3949ba59abbe56e057f20f883e",
                         IsDeleted = false,
                         Name = "YONG",
-                        Address = "HN",
-                        UserName ="YongDT",
-                        Password= "836e5d18d15f021bb70d5f97f0a1c0b0"
+                        Address = "HN"
                     }
             );
 
@@ -77,19 +76,19 @@ namespace Lib.Data.DataContext
             #region ref
             // product - category
             modelBuilder.Entity<Product>()
-              .HasOne<Category>(sc => sc.Category)
+              .HasOne(sc => sc.Category)
               .WithMany(s => s.Products)
               .HasForeignKey(sc => sc.CategoryId);
 
             // order - customer
             modelBuilder.Entity<Order>()
-               .HasOne<Customer>(sc => sc.Customer)
+               .HasOne(sc => sc.Customer)
                .WithMany(s => s.Orders)
                .HasForeignKey(sc => sc.CustomerId);
 
             // order - product
             modelBuilder.Entity<Order>()
-                 .HasOne<Product>(sc => sc.Product)
+                 .HasOne(sc => sc.Product)
                  .WithMany(s => s.Orders)
                  .HasForeignKey(sc => sc.ProductId);
             #endregion

@@ -13,8 +13,8 @@ namespace Lib.Service.Services
 {
     public class OrderService : IOrderService
     {
-        private readonly YDMApiDbContext _context;
-        public OrderService(YDMApiDbContext context)
+        private readonly YdmApiDbContext _context;
+        public OrderService(YdmApiDbContext context)
         {
             _context = context;
         }
@@ -102,7 +102,7 @@ namespace Lib.Service.Services
 
         public int GetRecordCount()
         {
-            return _context.Orders.Where(x => x.IsDeleted == false).Count();
+            return _context.Orders.Count(x => x.IsDeleted == false);
         }
 
         public IQueryable<OrderDto> Query()

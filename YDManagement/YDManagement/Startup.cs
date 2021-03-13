@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +15,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
@@ -24,6 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Lib.Common.Global;
 using YDManagement.Helpers;
 
 namespace YDManagement
@@ -121,7 +120,7 @@ namespace YDManagement
             #endregion
 
             #region database context
-            services.AddDbContext<YDMApiDbContext>(item => item.UseMySQL(Configuration.GetConnectionString("APIDBContext-Conn"))); //context
+            services.AddDbContext<YdmApiDbContext>(item => item.UseMySQL(Configuration.GetConnectionString("APIDBContext-Conn"))); //context
             #endregion
 
             #region configure jwt authentication
@@ -131,6 +130,22 @@ namespace YDManagement
                 auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
+                options.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = context => Task.CompletedTask,
+                    OnTokenValidated = context =>
+                    {
+                        var userId = int.TryParse(context.Principal.Identities.FirstOrDefault()?.Claims.FirstOrDefault(x => x.Type.Equals("USERID"))?.Value, out var id) ? id : 0;
+                        var user = YdConnectorSaver.GetById(userId);
+                        if (user == null)
+                        {
+                            // return unauthorized if user no longer exists
+                            context.Fail("Unauthorized");
+                        }
+                        CurrentContext.SetLoggedOnClientUser(user);
+                        return Task.CompletedTask;
+                    }
+                };
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters

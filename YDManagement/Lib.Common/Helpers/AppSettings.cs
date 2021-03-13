@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Lib.Common.Helpers
+﻿namespace Lib.Common.Helpers
 {
     public class AppSettings
     {
@@ -25,7 +23,7 @@ namespace Lib.Common.Helpers
     {
         public string SenderName { get; set; }
         public string Secret { get; set; }
-        public int RefreshTokenTTL { get; set; }
+        public int RefreshTokenTtl { get; set; }
         public string EmailFrom { get; set; }
         public string SmtpHost { get; set; }
         public int SmtpPort { get; set; }
@@ -33,12 +31,12 @@ namespace Lib.Common.Helpers
         public string SmtpPass { get; set; }
     }
 
-    public class AWSProfileName
+    public class AwsProfileName
     {
         public string UserName { get; set; }
         public string BucketName { get; set; }
-        public string AWSAccessKey { get; set; }
-        public string AWSSecretKey { get; set; }
+        public string AwsAccessKey { get; set; }
+        public string AwsSecretKey { get; set; }
         public string Region { get; set; }
     }
     public class UploadFolder

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Lib.Service.Dtos.UserPortal
+﻿namespace Lib.Service.Dtos.UserPortal
 {
     public class UserPortalDto
     {
