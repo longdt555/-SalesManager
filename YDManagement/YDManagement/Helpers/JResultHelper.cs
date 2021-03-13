@@ -2,10 +2,10 @@
 {
     public class JResultHelper
     {
-        public string Key { get; set; }
-        public string Status { get; set; }
-        public object Data { get; set; }
-        public object Extend { get; set; }
+        public string Key { get; set; } // current user token
+        public string Status { get; set; } // api 's status: success, failed
+        public object Data { get; set; } // api 's result
+        public object Extend { get; set; } // error msg / pagination
 
         public string GetKey()
         {

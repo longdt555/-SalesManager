@@ -78,7 +78,7 @@ namespace Lib.Service.Services
                         UpdatedDate = x.Category.UpdatedDate,
                         IsDeleted = x.Category.IsDeleted,
                     } : null
-                });
+                }).OrderBy(x => x.UpdatedDate ?? x.CreatedDate);
         }
 
         public ProductDto GetById(int id)

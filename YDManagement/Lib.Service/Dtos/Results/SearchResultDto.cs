@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Lib.Service.Dtos.Result
+﻿namespace Lib.Service.Dtos.Results
 {
     class SearchResultDto
     {
