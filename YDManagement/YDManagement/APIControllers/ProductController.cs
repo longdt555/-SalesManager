@@ -46,7 +46,7 @@ namespace YDManagement.APIControllers
 
         // POST api/<ProductController>
         [HttpPost]
-        public IActionResult create([ FromBody] ProductDto model)
+        public IActionResult Create([ FromBody] ProductDto model)
         {
             try
             {

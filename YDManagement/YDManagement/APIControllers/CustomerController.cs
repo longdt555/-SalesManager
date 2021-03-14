@@ -35,8 +35,10 @@ namespace YDManagement.APIControllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
+            var result = new JResultHelper();
             var data = _customerService.GetById(id);
-            return Ok(data);
+            result.SetData(data);
+            return Ok(result);
         }
 
         // POST api/<CategoryController>
