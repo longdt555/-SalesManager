@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Lib.Data.Entity;
+using Lib.Common.Model;
 
 namespace Lib.Common.Global
 {
     public static class YdConnectorSaver
     {
-        public static List<Customer> Customers { get; set; }
+        public static List<CustomerModel> Customers { get; set; }
 
         static YdConnectorSaver()
         {
-            Customers = new List<Customer>();
+            Customers = new List<CustomerModel>();
         }
 
-        public static Customer Add(Customer customer)
+        public static CustomerModel Add(CustomerModel customer)
         {
             Customers.Add(customer);
             return customer;
@@ -25,7 +25,7 @@ namespace Lib.Common.Global
             Customers.Remove(data);
         }
 
-        public static Customer GetById(int id)
+        public static CustomerModel GetById(int id)
         {
             return Customers.FirstOrDefault(x => x.Id == id);
         }

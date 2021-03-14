@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using Lib.Common;
 using Lib.Data.Entity;
 using Lib.Service.Dtos;
 using Lib.Service.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using YDManagement.Helpers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

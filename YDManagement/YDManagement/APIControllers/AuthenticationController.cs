@@ -14,7 +14,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Lib.Common.Global;
-using Lib.Data.Entity;
+using Lib.Common.Model;
+using Lib.Service.Dtos;
 using YDManagement.Helpers;
 
 namespace YDManagement.APIControllers
@@ -47,11 +48,13 @@ namespace YDManagement.APIControllers
             {
                 var data = _customerService.Authenticate(model);
                 if (data == null) return response;
-                CurrentContext.SetLoggedOnClientUser(data);
+                var customerModel = _mapper.Map<CustomerModel>(data);
+                YdConnectorSaver.Add(customerModel);
+                CurrentContext.SetLoggedOnClientUser(customerModel);
                 var tokenStr = GenerateAccessToken(data, model.RememberMe);
                 if (tokenStr != null)
                     HttpContext.Session.SetString("JWToken", tokenStr);  //Save token in session object
-              
+
                 result.SetKey(tokenStr);
                 result.SetData(data);
                 result.SetStatusSuccess();
@@ -89,7 +92,7 @@ namespace YDManagement.APIControllers
         #endregion
 
         #region private helper methods 
-        private string GenerateAccessToken(Customer data, bool rememberMe = false)
+        private string GenerateAccessToken(CustomerDto data, bool rememberMe = false)
         {
             var expiresVal = rememberMe
                 ? new DateTimeOffset(DateTime.Now.AddYears(1)).DateTime
@@ -107,12 +110,12 @@ namespace YDManagement.APIControllers
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-        private static IEnumerable<Claim> GetUserClaims(Customer data)
+        private static IEnumerable<Claim> GetUserClaims(CustomerDto data)
         {
             var claims = new[]
            {
                new Claim("USERID", data.Id.ToString()),
-               new Claim("USERNAME", data.UserName ?? string.Empty)
+               new Claim("EMAIL", data.Email)
            };
             return claims;
         }

@@ -1,9 +1,10 @@
-﻿namespace Lib.Service.Dtos
+﻿namespace Lib.Common.Model
 {
-    public class CustomerDto : BaseDto
+    public class CustomerModel : BaseModel
     {
         public string Email { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
+        public string Address { get; set; }
     }
 }

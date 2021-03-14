@@ -7,8 +7,6 @@ using Lib.Service.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Lib.Common.Global;
-using Lib.Data.Entity;
 
 namespace Lib.Service.Services
 {
@@ -19,18 +17,16 @@ namespace Lib.Service.Services
         {
             _context = context;
         }
-        public Customer Authenticate(UserPortalDto obj)
+        public CustomerDto Authenticate(UserPortalDto obj)
         {
             #region validate
-            if (string.IsNullOrEmpty(obj.UserName))
-                throw new AppException(AppCodeStatus.CreateUserNameRequired);
+            if (string.IsNullOrEmpty(obj.Email))
+                throw new AppException(AppCodeStatus.EmailRequired);
             if (string.IsNullOrEmpty(obj.Password))
-                throw new AppException(AppCodeStatus.CreatePasswordRequired);
-            // username checking
-            if (obj.UserName.Length < 2 || obj.UserName.Length > 50)
-                throw new AppException(AppCodeStatus.TextLengthInvalid);
-            if (AppHelpers.HasSpecialChar(obj.UserName))
-                throw new AppException(AppCodeStatus.ContainsSpecialCharacter);
+                throw new AppException(AppCodeStatus.PasswordRequired);
+            // email checking
+            if (!obj.Email.IsValidEmail())
+                throw new AppException(AppCodeStatus.EmailInvalid);
             // password checking
             if (obj.Password.Length < 6 || obj.Password.Length > 30)
                 throw new AppException(AppCodeStatus.TextLengthInvalid);
@@ -39,9 +35,14 @@ namespace Lib.Service.Services
             #endregion
 
             var data = _context.Customers
-                .SingleOrDefault(x => x.UserName.Trim().Replace(" ", "").ToLower().Equals(obj.UserName.ToLower()) && Security.EncryptKey(obj.Password).Equals(x.Password));
+                .Where(x => x.Email.Trim().Replace(" ", "").ToLower().Equals(obj.Email.ToLower()) &&
+                            Security.EncryptKey(obj.Password).Equals(x.Password)).Select(x => new CustomerDto()
+                            {
+                                Email = x.Email,
+                                Name = x.Name
+                            }).SingleOrDefault();
 
-            return YdConnectorSaver.Add(data);
+            return data;
         }
 
         public IEnumerable<CustomerDto> GetAll()

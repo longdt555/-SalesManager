@@ -1,12 +1,12 @@
 ﻿using Lib.Common.Global;
-using Lib.Data.Entity;
+using Lib.Common.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace YDManagement.APIControllers
 {
     public class BaseController : ControllerBase
     {
-        public static Customer ClientCurrentUser = CurrentContext.GetLoggedOnClientUser();
-        public static Customer AdminCurrentUser = CurrentContext.GetLoggedOnAdminUser();
+        public static CustomerModel ClientCurrentUser = CurrentContext.GetLoggedOnClientUser();
+        public static CustomerModel AdminCurrentUser = CurrentContext.GetLoggedOnAdminUser();
     }
 }

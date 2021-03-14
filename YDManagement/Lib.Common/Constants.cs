@@ -80,18 +80,19 @@
 
     public static class AppCodeStatus
     {
-        #region sucess
-        public const string SuccessActiveAccepted = "SUCESS.ACTIVE.ACCEPTED";
-        public const string SuccessSendMail = "SUCESS.MAIL.SENT";
-        public const string SuccessChangePassword = "SUCESS.CHANGE.PASSWORD";
-        public const string SuccessUpdate = "SUCESS.UPDATE";
-        public const string SuccessPayment = "SUCESS.PAYMENT";
+        #region success
+        public const string SuccessActiveAccepted = "SUCCESS.ACTIVE.ACCEPTED";
+        public const string SuccessSendMail = "SUCCESS.MAIL.SENT";
+        public const string SuccessChangePassword = "SUCCESS.CHANGE.PASSWORD";
+        public const string SuccessUpdate = "SUCCESS.UPDATE";
+        public const string SuccessPayment = "SUCCESS.PAYMENT";
         #endregion
 
         #region invalid
         public const string RegisterUserNameInvalid = "ERROR.REGISTER.USERNAME_INVALID";
         public const string ContainsSpecialCharacter = "ERROR.CONTAINS.SPECIAL_CHARACTER";
         public const string RegisterEmailInvalid = "ERROR.REGISTER.EMAIL_INVALID";
+        public const string EmailInvalid = "ERROR.EMAIL_INVALID";
         public const string RegisterPasswordInvalid = "ERROR.REGISTER.PASSWORD_INVALID";
         public const string TokenInvalid = "ERROR.TOKEN.INVALID";
         public const string TokenExpired = "ERROR.TOKEN.EXPIRED";
@@ -121,6 +122,7 @@
         public const string CreateNameRequired = "ERROR.CREATE.NAME_REQUIRED";
         public const string CreateValueRequired = "ERROR.CREATE.VALUE_REQUIRED";
         public const string CreateEmailRequired = "ERROR.CREATE.EMAIL_REQUIRED";
+        public const string EmailRequired = "ERROR.EMAIL_REQUIRED";
         public const string CreateFirstNameRequired = "ERROR.CREATE.FIRSTNAME_REQUIRED";
         public const string CreateLastNameRequired = "ERROR.CREATE.LASTNAME_REQUIRED";
         public const string CreateDateOfBirthRequired = "ERROR.CREATE.DATE_OF_BIRTH_REQUIRED";
@@ -133,6 +135,7 @@
         public const string CreateActivationDateRequired = "ERROR.CREATE.ACTIVATION_DATE_REQUIRED";
         public const string CreateDurationRequired = "ERROR.CREATE.DURATION_REQUIRED";
         public const string CreatePasswordRequired = "ERROR.REGISTER.PASSWORD_REQUIRED";
+        public const string PasswordRequired = "ERROR.PASSWORD_REQUIRED";
         public const string CreateTokenOrPasswordRequired = "ERROR.REGISTER.TOKEN_OR_PASSWORD_REQUIRED";
         public const string CreateOwnerIdentificationRequired = "ERROR.CREATE.OWNER_IDENTIFICATION_REQUIRED";
         public const string CreateTokenRequired = "ERROR.CREATE.TOKEN_REQUIRED";

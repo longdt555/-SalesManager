@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Lib.Common.Model;
 using Lib.Data.Entity;
 using Lib.Service.Dtos;
 
@@ -16,6 +17,10 @@ namespace YDManagement.Helpers
 
             CreateMap<CustomerDto, Customer>();
             CreateMap<Customer, CustomerDto>();
+
+
+            CreateMap<CustomerModel, Customer>();
+            CreateMap<Customer, CustomerModel>();
 
             CreateMap<CategoryDto, Category>();
             CreateMap<Category, CategoryDto>();

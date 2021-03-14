@@ -48,29 +48,31 @@ namespace Lib.Service.Services
 
         public IEnumerable<OrderDto> GetAll()
         {
-            return _context.Orders.Include(x => x.Product).Include(x => x.Customer).Where(x => x.IsDeleted == false && x.Product.IsDeleted == false && x.Customer.IsDeleted == false).Select(x => new OrderDto()
-            {
-                Id = x.Id,
-                Customer = x.Customer != null ? new Customer()
+            return _context.Orders.Include(x => x.Product).Include(x => x.Customer).Where(x =>
+                x.IsDeleted == false && x.Product.IsDeleted == false && x.Customer.IsDeleted == false).Select(x =>
+                new OrderDto()
                 {
-                    UserName = x.Customer.UserName,
-                    Name = x.Customer.Name,
-                    Address = x.Customer.Address
-                } : null,
-                Product = x.Product != null ? new ProductDto()
-                {
-                    Name = x.Product.Name,
-                    Price = x.Product.Price,
-                    Description = x.Product.Description,
-                } : null,
-                Amount = x.Amount,
-                Quantity = x.Quantity,
-                CreatedBy = x.CreatedBy,
-                CreatedDate = x.CreatedDate,
-                UpdatedBy = x.UpdatedBy,
-                UpdatedDate = x.UpdatedDate,
-                IsDeleted = x.IsDeleted
-            });
+                    Id = x.Id,
+                    Customer = x.Customer != null ? new Customer()
+                    {
+                        Id = x.Customer.Id,
+                        Email = x.Customer.Email,
+                        Name = x.Customer.Name,
+                    } : null,
+                    Product = x.Product != null ? new ProductDto()
+                    {
+                        Name = x.Product.Name,
+                        Price = x.Product.Price,
+                        Description = x.Product.Description,
+                    } : null,
+                    Amount = x.Amount,
+                    Quantity = x.Quantity,
+                    CreatedBy = x.CreatedBy,
+                    CreatedDate = x.CreatedDate,
+                    UpdatedBy = x.UpdatedBy,
+                    UpdatedDate = x.UpdatedDate,
+                    IsDeleted = x.IsDeleted
+                });
         }
 
         public OrderDto GetById(int id)
@@ -80,9 +82,9 @@ namespace Lib.Service.Services
                 Id = x.Id,
                 Customer = x.Customer != null ? new Customer()
                 {
-                    UserName = x.Customer.UserName,
+                    Id = x.Customer.Id,
+                    Email = x.Customer.Email,
                     Name = x.Customer.Name,
-                    Address = x.Customer.Address
                 } : null,
                 Product = x.Product != null ? new ProductDto()
                 {

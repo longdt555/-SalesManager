@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
-using Lib.Data.Entity;
-using Lib.Service.Dtos;
 using Lib.Service.IServices;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using YDManagement.Helpers;
 
 namespace YDManagement.APIControllers
