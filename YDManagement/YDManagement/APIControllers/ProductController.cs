@@ -5,6 +5,7 @@ using Lib.Service.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using Lib.Common.Helpers;
 using YDManagement.Helpers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,7 +14,7 @@ namespace YDManagement.APIControllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize] // The request must be contains jwt
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -45,34 +46,53 @@ namespace YDManagement.APIControllers
         }
 
         // POST api/<ProductController>
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Create([ FromBody] ProductDto model)
         {
             try
             {
-                var today = DateTime.Now;               
-                var data = _mapper.Map<Product>(model);               
+                var today = DateTime.Now;
+                var data = _mapper.Map<Product>(model);
                 data.CreatedDate = today;
                 _productService.Create(data);
-                var dataDto = _mapper.Map<OrderDto>(data);
+                var dataDto = _mapper.Map<ProductDto>(data);
                 return Ok(dataDto);
             }
-            catch
+            catch (AppException ex)
             {
+                Console.WriteLine($"{ex.Message} {ex.StackTrace}");
                 return BadRequest();
             }
         }
 
         // PUT api/<ProductController>/5
+        [Authorization.Authorize]
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Update(int id, [FromBody] ProductDto model)
         {
+
+            var data = _mapper.Map<Product>(model);
+            try
+            {
+                _productService.Update(data);
+                return Ok();
+
+            }
+            catch (AppException ex)
+            {
+                Console.WriteLine($"{ex.Message} { ex.StackTrace}");
+                return BadRequest();
+            }
         }
 
-        // DELETE api/<ProductController>/5
+        // DELETE api/<CategoryController>/5
+        [Authorization.Authorize]
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            _productService.Delete(id);
+            return Ok();
         }
     }
 }

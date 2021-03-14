@@ -43,17 +43,77 @@ namespace Lib.Service.Services
 
             return YdConnectorSaver.Add(data);
         }
+        public Customer Create(Customer obj)
+        {
+            _context.Customers.Add(obj);
+            _context.SaveChanges();
+            return obj;
+        }       
+        public void Delete(int id)
+        {
+            var data = _context.Customers.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
+            if (data == null) return;
+            data.IsDeleted = true;
 
+            _context.Customers.Update(data);
+            _context.SaveChanges();
+        }
+        public void Delete(CustomerDto data)
+        {
+            throw new System.NotImplementedException();
+        }
+        public void DeleteMany(List<int> ids)
+        {
+            var data = _context.Customers.Where(x => ids.Contains(x.Id));
+            if (!data.Any()) return;
+                    foreach (var item in data)
+                    item.IsDeleted = true;
+            _context.Customers.UpdateRange(data);
+            _context.SaveChanges();
+        }
         public IEnumerable<CustomerDto> GetAll()
         {
-            throw new NotImplementedException();
-        }
+            return _context.Customers.Where(x => x.IsDeleted == false).Select(x => new CustomerDto()
+            {
+                Id = x.Id,
+                UserName = x.UserName,
+                Password = x.Password,
+                Name = x.Name,
+                Address = x.Address,
 
+            });
+        }
         public CustomerDto GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Customers.Where(x => x.IsDeleted == false && x.Id == id).Select(x => new CustomerDto()
+            {
+                Id = x.Id,
+                UserName = x.UserName,
+                Password = x.Password,
+                Name = x.Name,
+                Address = x.Address,
+            }).FirstOrDefault();
+            
         }
-
+        public int GetRecordCount()
+        {
+            return _context.Customers.Count(x => x.IsDeleted == false);
+        }
+        public void Update(Customer obj)
+        {
+            #region validate
+            //if (string.IsNullOrEmpty(obj.Name))
+            //    throw new AppException(AppCodeStatus.ErrorCreateNameRequired);
+            #endregion
+            var exObj = _context.Customers.FirstOrDefault(x => x.Id == obj.Id && x.IsDeleted == false);
+            if (obj == null)
+            {
+                throw new AppException(AppCodeStatus.ObjectNotFound);
+            }
+            exObj.Address = obj.Address;
+            _context.Customers.Update(exObj);
+            _context.SaveChanges();
+        }
         public IQueryable<CustomerDto> Query()
         {
             throw new NotImplementedException();

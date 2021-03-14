@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Lib.Common.Helpers;
 using Lib.Data.Entity;
 using Lib.Service.Dtos;
 using Lib.Service.IServices;
@@ -42,18 +43,54 @@ namespace YDManagement.APIControllers
         }
 
         // POST api/<CategoryController>
-        
+        [Authorization.Authorize]
+        [HttpPost]
+        public IActionResult Create([FromBody] CustomerDto model)
+        {
+            try
+            {
+                var today = DateTime.Now;
+                var data = _mapper.Map<Customer>(model);
+                data.CreatedDate = today;
+                _customerService.Create(data);
+                var dataDto = _mapper.Map<CustomerDto>(data);
+                return Ok(dataDto);
+            }
+            catch (AppException ex)
+            {
+                Console.WriteLine($"{ex.Message} {ex.StackTrace}");
+                return BadRequest();
+            }
+        }
+
 
         // PUT api/<CategoryController>/5
+        [Authorization.Authorize]      
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Update(int id, [FromBody] CustomerDto model)          
         {
+             
+                var data = _mapper.Map<Customer>(model);
+            try
+            { 
+                _customerService.Update(data);
+                return Ok();
+                
+            }
+            catch (AppException ex)
+            {
+                Console.WriteLine($"{ex.Message} { ex.StackTrace}");
+                return BadRequest();
+            }
         }
 
         // DELETE api/<CategoryController>/5
+        [Authorization.Authorize]
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-        }
+            _customerService.Delete(id);
+            return Ok();
+        }        
     }
 }
