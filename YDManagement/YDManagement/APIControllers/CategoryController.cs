@@ -1,5 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Lib.Common;
+using Lib.Data.Entity;
+using Lib.Service.Dtos;
+using Lib.Service.IServices;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using YDManagement.Helpers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -7,20 +15,53 @@ namespace YDManagement.APIControllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CategoryController : ControllerBase
     {
-        // GET: api/<CategoryController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly ICategoryService _categoryService;
+        private readonly IProductService _productService;
+        private readonly IMapper _mapper;
+        public CategoryController(ICategoryService categoryService, IMapper mapper, IProductService productService)
         {
-            return new[] { "value1", "value2" };
+            _categoryService = categoryService;
+            _productService = productService;
+            _mapper = mapper;
         }
-
+        // GET: api/<CategoryController>
+     
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var result = new JResultHelper();
+            result.SetStatusSuccess();
+            var data = _categoryService.GetAll();
+            result.SetData(data);
+            return Ok(result);
+        }       
         // GET api/<CategoryController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult GetById(int id)
         {
-            return "value";
+            var data = _categoryService.GetById(id);
+            return Ok(data);
+        }
+        [AllowAnonymous]
+        [HttpPost()]
+        public IActionResult Create([FromBody] CategoryDto model)
+        {
+            IActionResult response = Unauthorized();
+            try
+            {
+                var data = _mapper.Map<Category>(model);
+                _categoryService.Create(data);
+                var dataDto = _mapper.Map<OrderDto>(data);
+                return Ok(dataDto);
+
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         // POST api/<CategoryController>
@@ -36,6 +77,7 @@ namespace YDManagement.APIControllers
         }
 
         // DELETE api/<CategoryController>/5
+        [HttpDelete("{id}")]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

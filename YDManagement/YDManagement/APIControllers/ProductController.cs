@@ -1,6 +1,10 @@
-﻿using Lib.Service.IServices;
+﻿using AutoMapper;
+using Lib.Data.Entity;
+using Lib.Service.Dtos;
+using Lib.Service.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using YDManagement.Helpers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,9 +17,11 @@ namespace YDManagement.APIControllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
-        public ProductController(IProductService productService)
+        private readonly IMapper _mapper;
+        public ProductController(IProductService productService, IMapper mapper)
         {
             _productService = productService;
+            _mapper = mapper;
         }
 
         // GET: api/<ProductController>
@@ -40,8 +46,21 @@ namespace YDManagement.APIControllers
 
         // POST api/<ProductController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult create([ FromBody] ProductDto model)
         {
+            try
+            {
+                var today = DateTime.Now;               
+                var data = _mapper.Map<Product>(model);               
+                data.CreatedDate = today;
+                _productService.Create(data);
+                var dataDto = _mapper.Map<OrderDto>(data);
+                return Ok(dataDto);
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         // PUT api/<ProductController>/5

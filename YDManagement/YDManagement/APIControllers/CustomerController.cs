@@ -1,5 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Lib.Data.Entity;
+using Lib.Service.Dtos;
+using Lib.Service.IServices;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using YDManagement.Helpers;
 
 namespace YDManagement.APIControllers
 {
@@ -7,26 +13,34 @@ namespace YDManagement.APIControllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-
+        private readonly ICustomerService _customerService;
+        private readonly IMapper _mapper;
+        public CustomerController(ICustomerService customerService, IMapper mapper)
+        {
+            _customerService = customerService;
+            _mapper = mapper;
+        }
         // GET: api/<CategoryController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult GetAll()
         {
-            return new[] { "value1", "value2" };
+            var result = new JResultHelper();
+            result.SetStatusSuccess();
+            var data = _customerService.GetAll();
+            result.SetData(data);
+            return Ok(result);
         }
 
         // GET api/<CategoryController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult GetById(int id)
         {
-            return "value";
+            var data = _customerService.GetById(id);
+            return Ok(data);
         }
 
         // POST api/<CategoryController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+        
 
         // PUT api/<CategoryController>/5
         [HttpPut("{id}")]
