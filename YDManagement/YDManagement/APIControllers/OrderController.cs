@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Lib.Common;
+using Lib.Common.Helpers;
 using Lib.Data.Entity;
 using Lib.Service.Dtos;
 using Lib.Service.IServices;
@@ -97,6 +98,33 @@ namespace YDManagement.APIControllers
             {
                 return BadRequest();
             }
+        }
+        [Authorization.Authorize]
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] OrderDto model)
+        {
+
+            var data = _mapper.Map<Order>(model);
+            try
+            {
+                _orderService.Update(data);
+                return Ok();
+
+            }
+            catch (AppException ex)
+            {
+                Console.WriteLine($"{ex.Message} { ex.StackTrace}");
+                return BadRequest();
+            }
+        }
+
+        // DELETE api/<CategoryController>/5
+        [Authorization.Authorize]
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _orderService.Delete(id);
+            return Ok();
         }
     }
 }

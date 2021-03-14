@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Lib.Common.Helpers;
 using Lib.Data.Entity;
 using Lib.Service.Dtos;
 using Lib.Service.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using YDManagement.Helpers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -46,7 +48,7 @@ namespace YDManagement.APIControllers
         [HttpPost()]
         public IActionResult Create([FromBody] CategoryDto model)
         {
-            IActionResult response = Unauthorized();
+            Unauthorized();
             try
             {
                 var data = _mapper.Map<Category>(model);
@@ -62,22 +64,32 @@ namespace YDManagement.APIControllers
         }
 
         // POST api/<CategoryController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<CategoryController>/5
+        [Authorization.Authorize]
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Update(int id, [FromBody] CategoryDto model)
         {
+
+            var data = _mapper.Map<Category>(model);
+            try
+            {
+                _categoryService.Update(data);
+                return Ok();
+
+            }
+            catch (AppException ex)
+            {
+                Console.WriteLine($"{ex.Message} { ex.StackTrace}");
+                return BadRequest();
+            }
         }
 
         // DELETE api/<CategoryController>/5
+        [Authorization.Authorize]
         [HttpDelete("{id}")]
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            _categoryService.Delete(id);
+            return Ok();
         }
     }
 }

@@ -48,7 +48,7 @@ namespace YDManagement.APIControllers
         // POST api/<ProductController>
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Create([FromBody] ProductDto model)
+        public IActionResult Create([ FromBody] ProductDto model)
         {
             try
             {
@@ -67,15 +67,32 @@ namespace YDManagement.APIControllers
         }
 
         // PUT api/<ProductController>/5
+        [Authorization.Authorize]
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Update(int id, [FromBody] ProductDto model)
         {
+
+            var data = _mapper.Map<Product>(model);
+            try
+            {
+                _productService.Update(data);
+                return Ok();
+
+            }
+            catch (AppException ex)
+            {
+                Console.WriteLine($"{ex.Message} { ex.StackTrace}");
+                return BadRequest();
+            }
         }
 
-        // DELETE api/<ProductController>/5
+        // DELETE api/<CategoryController>/5
+        [Authorization.Authorize]
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            _productService.Delete(id);
+            return Ok();
         }
     }
 }
