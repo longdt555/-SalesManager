@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using Lib.Common.Helpers;
 using YDManagement.Helpers;
+using Lib.Common;
+using YDManagement.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,7 +16,7 @@ namespace YDManagement.APIControllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize] // The request must be contains jwt
+    [Microsoft.AspNetCore.Authorization.Authorize] // The request must be contains jwt
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -26,6 +28,7 @@ namespace YDManagement.APIControllers
         }
 
         // GET: api/<ProductController>
+        [Permission(Roles.Administrator)]
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -38,6 +41,7 @@ namespace YDManagement.APIControllers
 
 
         // GET api/<ProductController>/5
+        [Permission(Roles.Administrator)]
         [HttpGet("GetById/{id}")]
         public IActionResult GetById(int id)
         {
@@ -46,7 +50,7 @@ namespace YDManagement.APIControllers
         }
 
         // POST api/<ProductController>
-        [AllowAnonymous]
+        [Permission(Roles.Administrator)]
         [HttpPost]
         public IActionResult Create([ FromBody] ProductDto model)
         {
@@ -68,6 +72,7 @@ namespace YDManagement.APIControllers
 
         // PUT api/<ProductController>/5
         [Authorization.Authorize]
+        [Permission(Roles.Administrator)]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] ProductDto model)
         {
@@ -88,6 +93,7 @@ namespace YDManagement.APIControllers
 
         // DELETE api/<CategoryController>/5
         [Authorization.Authorize]
+        [Permission(Roles.Administrator)]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

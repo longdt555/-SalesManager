@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Lib.Common;
 using Lib.Common.Helpers;
 using Lib.Data.Entity;
 using Lib.Service.Dtos;
@@ -6,6 +7,7 @@ using Lib.Service.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using YDManagement.Authorization;
 using YDManagement.Helpers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,7 +16,7 @@ namespace YDManagement.APIControllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Microsoft.AspNetCore.Authorization.Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
@@ -27,7 +29,7 @@ namespace YDManagement.APIControllers
             _mapper = mapper;
         }
         // GET: api/<CategoryController>
-     
+        [Permission(Roles.Administrator)]
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -36,15 +38,16 @@ namespace YDManagement.APIControllers
             var data = _categoryService.GetAll();
             result.SetData(data);
             return Ok(result);
-        }       
+        }
         // GET api/<CategoryController>/5
+        [Permission(Roles.Administrator)]
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             var data = _categoryService.GetById(id);
             return Ok(data);
         }
-        [AllowAnonymous]
+        [Permission(Roles.Administrator)]
         [HttpPost()]
         public IActionResult Create([FromBody] CategoryDto model)
         {
@@ -64,6 +67,7 @@ namespace YDManagement.APIControllers
         }
 
         // POST api/<CategoryController>
+        [Permission(Roles.Administrator)]
         [Authorization.Authorize]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] CategoryDto model)
@@ -84,6 +88,7 @@ namespace YDManagement.APIControllers
         }
 
         // DELETE api/<CategoryController>/5
+        [Permission(Roles.Administrator)]
         [Authorization.Authorize]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
