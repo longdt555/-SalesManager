@@ -118,6 +118,7 @@ namespace YDManagement
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IBackendUserService, BackendUserService>();
+            services.AddScoped<IRoleService, RoleService>();
             #endregion
 
             #region database context

@@ -12,6 +12,7 @@ namespace Lib.Data.DataContext
         public DbSet<Order> Orders { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<BackendUser> BackendUsers { get; set; }
+        public DbSet<Role> Roles { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Seed data

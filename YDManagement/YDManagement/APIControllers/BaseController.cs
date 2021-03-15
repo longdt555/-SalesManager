@@ -7,6 +7,6 @@ namespace YDManagement.APIControllers
     public class BaseController : ControllerBase
     {
         public static CustomerModel ClientCurrentUser = CurrentContext.GetLoggedOnClientUser();
-        public static CustomerModel AdminCurrentUser = CurrentContext.GetLoggedOnAdminUser();
+        public static BackendUserModel AdminCurrentUser = CurrentContext.GetLoggedOnAdminUser();
     }
 }

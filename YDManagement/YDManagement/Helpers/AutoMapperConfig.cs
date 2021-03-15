@@ -26,6 +26,8 @@ namespace YDManagement.Helpers
 
             CreateMap<CategoryDto, Category>();
             CreateMap<Category, CategoryDto>();
+            CreateMap<RoleDto, Role>();
+            CreateMap<Role, RoleDto>();
         }
     }
 }
