@@ -1,7 +1,7 @@
 ﻿using Lib.Service.Dtos;
-using Lib.Service.Dtos.UserPortal;
 using System.Collections.Generic;
 using Lib.Data.Entity;
+using Lib.Service.Dtos.Auth;
 
 namespace Lib.Service.IServices
 {

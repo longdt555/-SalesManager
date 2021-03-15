@@ -90,6 +90,7 @@
 
         #region invalid
         public const string RegisterUserNameInvalid = "ERROR.REGISTER.USERNAME_INVALID";
+        public const string UserNameInvalid = "ERROR.USERNAME_INVALID";
         public const string ContainsSpecialCharacter = "ERROR.CONTAINS.SPECIAL_CHARACTER";
         public const string RegisterEmailInvalid = "ERROR.REGISTER.EMAIL_INVALID";
         public const string EmailInvalid = "ERROR.EMAIL_INVALID";
@@ -127,6 +128,7 @@
         public const string CreateLastNameRequired = "ERROR.CREATE.LASTNAME_REQUIRED";
         public const string CreateDateOfBirthRequired = "ERROR.CREATE.DATE_OF_BIRTH_REQUIRED";
         public const string CreateUserNameRequired = "ERROR.CREATE.USERNAME_REQUIRED";
+        public const string UserNameRequired = "ERROR.USERNAME_REQUIRED";
         public const string CreateImageRequired = "ERROR.CREATE.IMAGE_REQUIRED";
         public const string CreateTransferableRequired = "ERROR.CREATE.TRANSFERABLE_REQUIRED";
         public const string CreateTransferFeeRequired = "ERROR.CREATE.TRANSFER_FEE_REQUIRED";

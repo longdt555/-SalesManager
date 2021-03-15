@@ -18,9 +18,11 @@ namespace YDManagement.Helpers
             CreateMap<CustomerDto, Customer>();
             CreateMap<Customer, CustomerDto>();
 
-
             CreateMap<CustomerModel, Customer>();
             CreateMap<Customer, CustomerModel>();
+
+            CreateMap<BackendUserModel, BackendUser>();
+            CreateMap<BackendUser, BackendUserModel>();
 
             CreateMap<CategoryDto, Category>();
             CreateMap<Category, CategoryDto>();

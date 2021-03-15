@@ -117,6 +117,7 @@ namespace YDManagement
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IBackendUserService, BackendUserService>();
             #endregion
 
             #region database context
@@ -136,7 +137,7 @@ namespace YDManagement
                     OnTokenValidated = context =>
                     {
                         var userId = int.TryParse(context.Principal.Identities.FirstOrDefault()?.Claims.FirstOrDefault(x => x.Type.Equals("USERID"))?.Value, out var id) ? id : 0;
-                        var user = YdConnectorSaver.GetById(userId);
+                        var user = YdConnectorSaver.GetCustomerById(userId);
                         if (user == null)
                         {
                             // return unauthorized if user no longer exists

@@ -5,6 +5,7 @@ namespace Lib.Common.Global
     public static class CurrentContext
     {
         private static CustomerModel LoggedOnClientUser { get; set; }
+        private static BackendUserModel LoggedOnAdminUser { get; set; }
 
         public static void SetLoggedOnClientUser(CustomerModel customer)
         {
@@ -17,14 +18,12 @@ namespace Lib.Common.Global
         }
 
 
-        private static CustomerModel LoggedOnAdminUser { get; set; }
-
-        public static void SetLoggedOnAdminUser(CustomerModel customer)
+        public static void SetLoggedOnAdminUser(BackendUserModel model)
         {
-            LoggedOnAdminUser = customer;
+            LoggedOnAdminUser = model;
         }
 
-        public static CustomerModel GetLoggedOnAdminUser()
+        public static BackendUserModel GetLoggedOnAdminUser()
         {
             return LoggedOnAdminUser;
         }
