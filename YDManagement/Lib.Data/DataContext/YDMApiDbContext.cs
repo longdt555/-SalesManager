@@ -11,8 +11,15 @@ namespace Lib.Data.DataContext
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<CustomerCart> CustomerCarts { get; set; }
+        public DbSet<CustomerProfile> CustomerProfiles { get; set; }
+        public DbSet<ExpiredLink> ExpiredLinks { get; set; }
+        public DbSet<SystemSettings> SystemSettings { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<TransactionDetail> TransactionDetails { get; set; }
         public DbSet<BackendUser> BackendUsers { get; set; }
         public DbSet<Role> Roles { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Seed data

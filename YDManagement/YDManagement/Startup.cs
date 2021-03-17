@@ -119,6 +119,12 @@ namespace YDManagement
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IBackendUserService, BackendUserService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<ICustomerCartService, CustomerCartService>();
+            services.AddScoped<ICustomerProfileService, CustomerProfileService>();
+            services.AddScoped<ISystemSettingsService, SystemSettingsService>();
+            services.AddScoped<ITransactionService, TransactionService>();
+            services.AddScoped<ITransactionDetailService, TransactionDetailService>();
+
             #endregion
 
             #region database context
