@@ -47,7 +47,6 @@ namespace YDManagement.Helpers
 
             CreateMap<TransactionDetailDto, TransactionDetail>();
             CreateMap<TransactionDetail, TransactionDetailDto>();
-
         }
     }
 }
