@@ -23,11 +23,11 @@ namespace YDManagement.APIControllers
             _mapper = mapper;
         }
 
+        [HttpGet]
         public IActionResult GetAll()
         {
             var data = _roleService.GetAll();
-            var dataDto = _mapper.Map<IList<RoleDto>>(data);
-            return Ok(dataDto);
+            return Ok(data);
         }
 
         // GET api/<RoleController>/5
