@@ -14,10 +14,12 @@ namespace Lib.Service.Services
     public class OrderService : IOrderService
     {
         private readonly YdmApiDbContext _context;
+
         public OrderService(YdmApiDbContext context)
         {
             _context = context;
         }
+
         public Order Create(Order obj)
         {
             _context.Orders.Add(obj);
@@ -53,18 +55,22 @@ namespace Lib.Service.Services
                 new OrderDto()
                 {
                     Id = x.Id,
-                    Customer = x.Customer != null ? new Customer()
-                    {
-                        Id = x.Customer.Id,
-                        Email = x.Customer.Email,
-                        Name = x.Customer.Name,
-                    } : null,
-                    Product = x.Product != null ? new ProductDto()
-                    {
-                        Name = x.Product.Name,
-                        Price = x.Product.Price,
-                        Description = x.Product.Description,
-                    } : null,
+                    Customer = x.Customer != null
+                        ? new Customer()
+                        {
+                            Id = x.Customer.Id,
+                            Email = x.Customer.Email,
+                            Name = x.Customer.Name,
+                        }
+                        : null,
+                    Product = x.Product != null
+                        ? new ProductDto()
+                        {
+                            Name = x.Product.Name,
+                            Price = x.Product.Price,
+                            Description = x.Product.Description,
+                        }
+                        : null,
                     Amount = x.Amount,
                     Quantity = x.Quantity,
                     CreatedBy = x.CreatedBy,
@@ -77,29 +83,35 @@ namespace Lib.Service.Services
 
         public OrderDto GetById(int id)
         {
-            return _context.Orders.Include(x => x.Product).Include(x => x.Customer).Where(x => x.Id == id && x.IsDeleted == false && x.Product.IsDeleted == false && x.Customer.IsDeleted == false).Select(x => new OrderDto()
-            {
-                Id = x.Id,
-                Customer = x.Customer != null ? new Customer()
+            return _context.Orders.Include(x => x.Product).Include(x => x.Customer).Where(x =>
+                    x.Id == id && x.IsDeleted == false && x.Product.IsDeleted == false && x.Customer.IsDeleted == false)
+                .Select(x => new OrderDto()
                 {
-                    Id = x.Customer.Id,
-                    Email = x.Customer.Email,
-                    Name = x.Customer.Name,
-                } : null,
-                Product = x.Product != null ? new ProductDto()
-                {
-                    Name = x.Product.Name,
-                    Price = x.Product.Price,
-                    Description = x.Product.Description,
-                } : null,
-                Amount = x.Amount,
-                Quantity = x.Quantity,
-                CreatedBy = x.CreatedBy,
-                CreatedDate = x.CreatedDate,
-                UpdatedBy = x.UpdatedBy,
-                UpdatedDate = x.UpdatedDate,
-                IsDeleted = x.IsDeleted
-            }).FirstOrDefault();
+                    Id = x.Id,
+                    Customer = x.Customer != null
+                        ? new Customer()
+                        {
+                            Id = x.Customer.Id,
+                            Email = x.Customer.Email,
+                            Name = x.Customer.Name,
+                        }
+                        : null,
+                    Product = x.Product != null
+                        ? new ProductDto()
+                        {
+                            Name = x.Product.Name,
+                            Price = x.Product.Price,
+                            Description = x.Product.Description,
+                        }
+                        : null,
+                    Amount = x.Amount,
+                    Quantity = x.Quantity,
+                    CreatedBy = x.CreatedBy,
+                    CreatedDate = x.CreatedDate,
+                    UpdatedBy = x.UpdatedBy,
+                    UpdatedDate = x.UpdatedDate,
+                    IsDeleted = x.IsDeleted
+                }).FirstOrDefault();
         }
 
         public int GetRecordCount()

@@ -14,6 +14,7 @@ namespace Lib.Service.Services
     public class ProductService : IProductService
     {
         private readonly YdmApiDbContext _context;
+
         public ProductService(YdmApiDbContext context)
         {
             _context = context;
@@ -22,8 +23,10 @@ namespace Lib.Service.Services
         public Product Create(Product obj)
         {
             #region validate
+
             if (string.IsNullOrEmpty(obj.Name))
                 throw new AppException(AppCodeStatus.CreateNameRequired);
+
             #endregion
 
             _context.Products.Add(obj);
@@ -67,17 +70,19 @@ namespace Lib.Service.Services
                     UpdatedBy = x.UpdatedBy,
                     UpdatedDate = x.UpdatedDate,
                     IsDeleted = x.IsDeleted,
-                    Category = x.Category != null ? new CategoryDto()
-                    {
-                        Id = x.Category.Id,
-                        Name = x.Category.Name,
-                        Description = x.Category.Description,
-                        CreatedBy = x.Category.CreatedBy,
-                        CreatedDate = x.Category.CreatedDate,
-                        UpdatedBy = x.Category.UpdatedBy,
-                        UpdatedDate = x.Category.UpdatedDate,
-                        IsDeleted = x.Category.IsDeleted,
-                    } : null
+                    Category = x.Category != null
+                        ? new CategoryDto()
+                        {
+                            Id = x.Category.Id,
+                            Name = x.Category.Name,
+                            Description = x.Category.Description,
+                            CreatedBy = x.Category.CreatedBy,
+                            CreatedDate = x.Category.CreatedDate,
+                            UpdatedBy = x.Category.UpdatedBy,
+                            UpdatedDate = x.Category.UpdatedDate,
+                            IsDeleted = x.Category.IsDeleted,
+                        }
+                        : null
                 }).OrderBy(x => x.UpdatedDate ?? x.CreatedDate);
         }
 
@@ -97,17 +102,19 @@ namespace Lib.Service.Services
                         UpdatedBy = x.UpdatedBy,
                         UpdatedDate = x.UpdatedDate,
                         IsDeleted = x.IsDeleted,
-                        Category = x.Category != null ? new CategoryDto()
-                        {
-                            Id = x.Category.Id,
-                            Name = x.Category.Name,
-                            Description = x.Category.Description,
-                            CreatedBy = x.Category.CreatedBy,
-                            CreatedDate = x.Category.CreatedDate,
-                            UpdatedBy = x.Category.UpdatedBy,
-                            UpdatedDate = x.Category.UpdatedDate,
-                            IsDeleted = x.Category.IsDeleted,
-                        } : null
+                        Category = x.Category != null
+                            ? new CategoryDto()
+                            {
+                                Id = x.Category.Id,
+                                Name = x.Category.Name,
+                                Description = x.Category.Description,
+                                CreatedBy = x.Category.CreatedBy,
+                                CreatedDate = x.Category.CreatedDate,
+                                UpdatedBy = x.Category.UpdatedBy,
+                                UpdatedDate = x.Category.UpdatedDate,
+                                IsDeleted = x.Category.IsDeleted,
+                            }
+                            : null
                     }).FirstOrDefault();
         }
 
@@ -129,8 +136,10 @@ namespace Lib.Service.Services
         public void Update(Product obj)
         {
             #region validate
+
             if (string.IsNullOrEmpty(obj.Name))
                 throw new AppException(AppCodeStatus.CreateNameRequired);
+
             #endregion
 
             var exObj = _context.Products.FirstOrDefault(x => x.Id == obj.Id && x.IsDeleted == false);

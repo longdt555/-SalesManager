@@ -7,7 +7,6 @@ using Lib.Service.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Lib.Service.Services
 {
@@ -19,15 +18,17 @@ namespace Lib.Service.Services
         {
             _context = context;
         }
+
         public CustomerProfile Create(CustomerProfile obj)
         {
             var data = _context.CustomerProfiles.Add(obj);
             _context.SaveChanges();
             return obj;
         }
+
         public void Update(CustomerProfile obj)
         {
-            var exObj = _context.CustomerProfiles.FirstOrDefault(x => x.Id == obj.Id );
+            var exObj = _context.CustomerProfiles.FirstOrDefault(x => x.Id == obj.Id);
             if (exObj == null)
                 throw new AppException(AppCodeStatus.ObjectNotFound);
 
@@ -44,6 +45,7 @@ namespace Lib.Service.Services
             _context.Update(exObj);
             _context.SaveChanges();
         }
+
         public void Delete(int id)
         {
             throw new NotImplementedException();
@@ -53,16 +55,20 @@ namespace Lib.Service.Services
         {
             throw new NotImplementedException();
         }
+
         public IEnumerable<CustomerProfileDto> GetAll()
         {
             return _context.CustomerProfiles.Where(x => x.IsDeleted == false).Select(x => new CustomerProfileDto()
             );
         }
+
         public CustomerProfileDto GetById(int id)
         {
-            return _context.CustomerProfiles.Where(x => x.Id == id && x.IsDeleted == false).Select(x => new CustomerProfileDto()
+            return _context.CustomerProfiles.Where(x => x.Id == id && x.IsDeleted == false).Select(
+                x => new CustomerProfileDto()
             ).FirstOrDefault();
         }
+
         public IQueryable<CustomerProfileDto> Query()
         {
             throw new NotImplementedException();

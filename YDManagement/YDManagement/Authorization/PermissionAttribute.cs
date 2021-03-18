@@ -8,14 +8,14 @@ namespace YDManagement.Authorization
     {
         private string Roles { get; set; }
         public PermissionAttribute(string roles) { this.Roles = roles.Trim().Replace(" ", ""); }
-        
+
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             if (string.IsNullOrEmpty(Roles)) return;
             try
             {
                 //var lstRoleAllowed = Roles.Split(Constants.Comma).ToList();
-                //if (lstRoleAllowed.Contains(LoggedOnUser.RoleName))
+                //if (lstRoleAllowed.Contains(CurrentContext.GetLoggedOnAdminUser().RoleName))
                 //    return;
                 //context.Result = new UnauthorizedObjectResult(StatusCodes.Status403Forbidden);
             }
