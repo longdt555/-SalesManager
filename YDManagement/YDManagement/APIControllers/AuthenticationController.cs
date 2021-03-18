@@ -132,6 +132,14 @@ namespace YDManagement.APIControllers
             }
         }
 
+        [HttpPost("AdminLogout")]
+        public IActionResult AdminLogout()
+        {
+            Helpers.AppHelpers.RemoveCurrentBackendUserData();
+            HttpContext.Session.Clear();
+            return NoContent();
+        }
+
         #endregion
 
         #region private helper methods
