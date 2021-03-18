@@ -5,7 +5,6 @@ using Lib.Data.Entity;
 using Lib.Service.Dtos;
 using Lib.Service.IServices;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace YDManagement.APIControllers
 {
@@ -55,7 +54,7 @@ namespace YDManagement.APIControllers
             catch (AppException ex)
             {
                 // return error message if there was an exception
-                return BadRequest(new {message = ex.Message});
+                return BadRequest(new { message = ex.Message });
             }
         }
 
@@ -74,7 +73,7 @@ namespace YDManagement.APIControllers
             catch (AppException ex)
             {
                 // return error message if there was an exception
-                return BadRequest(new {message = ex.Message});
+                return BadRequest(new { message = ex.Message });
             }
         }
 
@@ -85,5 +84,5 @@ namespace YDManagement.APIControllers
             _roleService.Delete(id);
             return Ok();
         }
-    } 
+    }
 }
