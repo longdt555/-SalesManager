@@ -5,6 +5,7 @@ using Lib.Service.IServices;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using Lib.Common.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using YDManagement.Helpers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,7 +14,7 @@ namespace YDManagement.APIControllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Microsoft.AspNetCore.Authorization.Authorize] // The request must be contains jwt
+    [Authorize] // The request must be contains jwt
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;

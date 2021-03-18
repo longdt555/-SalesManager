@@ -1,16 +1,19 @@
 ﻿
 using AutoMapper;
+using Lib.Common;
 using Lib.Common.Helpers;
 using Lib.Data.Entity;
 using Lib.Service.Dtos;
 using Lib.Service.IServices;
 using Microsoft.AspNetCore.Mvc;
+using YDManagement.Authorization;
 
 namespace YDManagement.APIControllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Microsoft.AspNetCore.Authorization.Authorize] // The request must be contains jwt
+    [Permission(Roles.Administrator)]
+    [Authorize] // The request must be contains jwt
     public class RoleController : BaseController
     {
         private readonly IRoleService _roleService;
