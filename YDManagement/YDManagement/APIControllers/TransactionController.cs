@@ -46,7 +46,7 @@ namespace YDManagement.APIControllers
 
         }
         [Permission(Roles.Administrator + ", " + Roles.Client)]
-        [Authorization.Authorize]
+        //[Authorization.Authorize]
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -54,7 +54,7 @@ namespace YDManagement.APIControllers
             return Ok(data);
         }
         [Permission(Roles.Administrator + ", " + Roles.Client)]
-        [Authorization.Authorize]
+        //[Authorization.Authorize]
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -62,7 +62,7 @@ namespace YDManagement.APIControllers
             return Ok(data);
         }
         [Permission(Roles.Administrator + ", " + Roles.Client)]
-        [Authorization.Authorize]
+        //[Authorization.Authorize]
         [HttpPut]
         public IActionResult Update([FromBody] Transaction model)
         {

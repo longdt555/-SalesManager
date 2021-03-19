@@ -13,8 +13,7 @@ using Lib.Data.Entity;
 using Lib.Common.Helpers;
 
 namespace YDManagement.APIControllers
-{
-    [Authorize]
+{    
     [Route("api/[controller]")]
     [ApiController]
     public class BackendUserController : BaseController

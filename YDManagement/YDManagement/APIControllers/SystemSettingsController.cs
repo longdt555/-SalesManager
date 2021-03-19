@@ -21,8 +21,7 @@ namespace YDManagement.APIControllers
             _systemSettingsService = systemSettingsService;
         }
         // GET: api/<SystemSettingsController>
-        [Permission(Roles.Administrator + ", " + Roles.Editor)]
-        [Authorization.Authorize]
+        [Permission(Roles.Administrator + ", " + Roles.Editor)]  
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -39,7 +38,7 @@ namespace YDManagement.APIControllers
             return Ok(data);
         }
         [Permission(Roles.Administrator)]
-        [Authorization.Authorize]
+        
         [HttpPost]
         public IActionResult Create([FromBody] SystemSettings model)
         {
@@ -55,7 +54,7 @@ namespace YDManagement.APIControllers
             }
         }
         [Permission(Roles.Administrator + ", " + Roles.Editor)]
-        [Authorization.Authorize]
+      
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] SystemSettings model)
         {
@@ -84,7 +83,7 @@ namespace YDManagement.APIControllers
 
         // DELETE api/<SystemSettingsController>/5
         [Permission(Roles.Administrator)]
-        [Authorization.Authorize]
+       
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
