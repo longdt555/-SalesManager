@@ -34,6 +34,7 @@ namespace YDManagement.APIControllers
             try
             {
                 data.CreatedDate = DateTime.Now;
+                data.CreatedBy = AdminCurrentUser.Id;
                 _backendUserService.Create(data);
                 var dataDto = _mapper.Map<BackendUserDto>(data);
                 return Ok(dataDto);
@@ -70,7 +71,8 @@ namespace YDManagement.APIControllers
             var data = _mapper.Map<BackendUser>(model);
             try
             {
-                data.UpdatedDate = DateTime.Now;                
+                data.UpdatedDate = DateTime.Now;
+                data.UpdatedBy = AdminCurrentUser.Id;
                 _backendUserService.Update(data);
                 return Ok();
             }

@@ -11,6 +11,6 @@ namespace Lib.Service.IServices
         CustomerProfile Create(CustomerProfile obj);
         void Delete(int id);
         void DeleteMany(List<int> ids);
-       
+        void Update(CustomerProfile obj);
     }
 }

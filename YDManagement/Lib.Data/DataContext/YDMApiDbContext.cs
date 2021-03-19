@@ -14,7 +14,7 @@ namespace Lib.Data.DataContext
         public DbSet<CustomerCart> CustomerCarts { get; set; }
         public DbSet<CustomerProfile> CustomerProfiles { get; set; }
         public DbSet<ExpiredLink> ExpiredLinks { get; set; }
-        public DbSet<SystemSettings> SystemSettings { get; set; }
+        public DbSet<SystemSettings> SystemSettingss { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TransactionDetail> TransactionDetails { get; set; }
         public DbSet<BackendUser> BackendUsers { get; set; }
