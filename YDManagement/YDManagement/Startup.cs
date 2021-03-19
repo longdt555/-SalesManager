@@ -121,7 +121,7 @@ namespace YDManagement
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<ICustomerCartService, CustomerCartService>();
             services.AddScoped<ICustomerProfileService, CustomerProfileService>();
-            services.AddScoped<ISystemSettingsService, SystemSettingsService>();
+            //services.AddScoped<ISystemSettingsService, SystemSettingsService>();
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<ITransactionDetailService, TransactionDetailService>();
 

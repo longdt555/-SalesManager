@@ -20,6 +20,7 @@ namespace YDManagement.APIControllers
         private readonly IOrderService _orderService;
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
+
         public OrderController(IOrderService orderService, IMapper mapper, IProductService productService)
         {
             _orderService = orderService;
@@ -56,7 +57,7 @@ namespace YDManagement.APIControllers
                 var currentUser = ClientCurrentUser.Id;
                 var data = _mapper.Map<Order>(model);
                 if (_productService.IsOutOfStock(data.ProductId, data.Quantity))
-                    return Ok(new { StatusCode = StatusCodes.Status409Conflict, Message = AppCodeStatus.OutOfStock });
+                    return Ok(new {StatusCode = StatusCodes.Status409Conflict, Message = AppCodeStatus.OutOfStock});
 
                 data.CustomerId = currentUser;
                 data.CreatedBy = currentUser;
@@ -79,7 +80,7 @@ namespace YDManagement.APIControllers
         }
 
         // POST api/<ProductController>
-        [Authorization.Authorize]
+
         [HttpPost("AdminCreate")]
         public IActionResult AdminCreate([FromBody] OrderDto model)
         {
@@ -99,27 +100,25 @@ namespace YDManagement.APIControllers
                 return BadRequest();
             }
         }
-        [Authorization.Authorize]
+
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] OrderDto model)
         {
-
             var data = _mapper.Map<Order>(model);
             try
             {
                 _orderService.Update(data);
                 return Ok();
-
             }
             catch (AppException ex)
             {
-                Console.WriteLine($"{ex.Message} { ex.StackTrace}");
+                Console.WriteLine($"{ex.Message} {ex.StackTrace}");
                 return BadRequest();
             }
         }
 
         // DELETE api/<CategoryController>/5
-        [Authorization.Authorize]
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

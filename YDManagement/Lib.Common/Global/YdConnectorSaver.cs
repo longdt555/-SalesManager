@@ -17,6 +17,7 @@ namespace Lib.Common.Global
 
 
         #region Customer
+
         public static CustomerModel Add(CustomerModel model)
         {
             Customers.Add(model);
@@ -33,9 +34,11 @@ namespace Lib.Common.Global
         {
             return Customers.FirstOrDefault(x => x.Id == id);
         }
+
         #endregion
 
         #region Backend user
+
         public static BackendUserModel Add(BackendUserModel model)
         {
             BackendUsers.Add(model);
@@ -52,6 +55,7 @@ namespace Lib.Common.Global
         {
             return BackendUsers.FirstOrDefault(x => x.Id == id);
         }
+
         #endregion
     }
 }

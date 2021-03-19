@@ -28,7 +28,9 @@ namespace YDManagement.APIControllers
         private readonly IMapper _mapper;
         private readonly ICustomerService _customerService;
         private readonly IBackendUserService _backendUserService;
-        public AuthenticationController(IOptions<Jwt> jwt, IMapper mapper, ICustomerService customerService, IBackendUserService backendUserService)
+
+        public AuthenticationController(IOptions<Jwt> jwt, IMapper mapper, ICustomerService customerService,
+            IBackendUserService backendUserService)
         {
             _jwt = jwt.Value;
             _mapper = mapper;
@@ -37,6 +39,7 @@ namespace YDManagement.APIControllers
         }
 
         #region Client
+
         [AllowAnonymous]
         [HttpPost("ClientLogin")]
         public IActionResult ClientLogin([FromBody] UserPortalDto model)
@@ -52,7 +55,7 @@ namespace YDManagement.APIControllers
                 CurrentContext.SetLoggedOnClientUser(customerModel); // Set logged user to static model
                 var tokenStr = GenerateAccessToken(data, model.RememberMe);
                 if (tokenStr != null)
-                    HttpContext.Session.SetString("JWToken", tokenStr);  //Save token in session object
+                    HttpContext.Session.SetString("JWToken", tokenStr); //Save token in session object
 
                 result.SetKey(tokenStr);
                 result.SetData(data);
@@ -84,9 +87,11 @@ namespace YDManagement.APIControllers
             HttpContext.Session.Clear();
             return NoContent();
         }
+
         #endregion
 
         #region Admin portal
+
         [AllowAnonymous]
         [HttpPost("AdminLogin")]
         public IActionResult AdminLogin([FromBody] UserPortalDto model)
@@ -102,7 +107,7 @@ namespace YDManagement.APIControllers
                 CurrentContext.SetLoggedOnAdminUser(backendUserModel); // Set logged user to static model
                 var tokenStr = GenerateAccessToken(data, model.RememberMe);
                 if (tokenStr != null)
-                    HttpContext.Session.SetString("JWToken", tokenStr);  //Save token in session object
+                    HttpContext.Session.SetString("JWToken", tokenStr); //Save token in session object
 
                 result.SetKey(tokenStr);
                 result.SetData(data);
@@ -126,9 +131,19 @@ namespace YDManagement.APIControllers
                 }
             }
         }
+
+        [HttpPost("AdminLogout")]
+        public IActionResult AdminLogout()
+        {
+            Helpers.AppHelpers.RemoveCurrentBackendUserData();
+            HttpContext.Session.Clear();
+            return NoContent();
+        }
+
         #endregion
 
-        #region private helper methods 
+        #region private helper methods
+
         private string GenerateAccessToken(CustomerDto data, bool rememberMe = false)
         {
             var expiresVal = rememberMe
@@ -147,13 +162,14 @@ namespace YDManagement.APIControllers
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
         private static IEnumerable<Claim> GetUserClaims(CustomerDto data)
         {
             var claims = new[]
-           {
-               new Claim("USERID", data.Id.ToString()),
-               new Claim("EMAIL", data.Email)
-           };
+            {
+                new Claim("USERID", data.Id.ToString()),
+                new Claim("EMAIL", data.Email)
+            };
             return claims;
         }
 
@@ -175,6 +191,7 @@ namespace YDManagement.APIControllers
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
         private static IEnumerable<Claim> GetUserClaims(BackendUserDto data)
         {
             var claims = new[]
@@ -184,6 +201,7 @@ namespace YDManagement.APIControllers
             };
             return claims;
         }
+
         #endregion
     }
 }

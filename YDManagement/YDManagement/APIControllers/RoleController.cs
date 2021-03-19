@@ -5,34 +5,31 @@ using Lib.Common.Helpers;
 using Lib.Data.Entity;
 using Lib.Service.Dtos;
 using Lib.Service.IServices;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using YDManagement.Authorization;
 
 namespace YDManagement.APIControllers
 {
     [Route("api/[controller]")]
-    [Permission(Roles.Administrator + ", " + Roles.Client)]
     [ApiController]
-    [Microsoft.AspNetCore.Authorization.Authorize] // The request must be contains jwt
+    [Permission(Roles.Administrator)]
+    [Authorize] // The request must be contains jwt
     public class RoleController : BaseController
     {
         private readonly IRoleService _roleService;
         private readonly IMapper _mapper;
+
         public RoleController(IRoleService roleService, IMapper mapper)
         {
             _roleService = roleService;
             _mapper = mapper;
         }
+
+        [HttpGet]
         public IActionResult GetAll()
         {
             var data = _roleService.GetAll();
-            var dataDto = _mapper.Map<IList<RoleDto>>(data);
-            return Ok(dataDto);
+            return Ok(data);
         }
 
         // GET api/<RoleController>/5
@@ -45,7 +42,6 @@ namespace YDManagement.APIControllers
         }
 
         // POST api/<RoleController>
-        [Permission(Roles.Administrator)]
         [HttpPost]
         public IActionResult Create([FromBody] RoleDto model)
         {
@@ -63,11 +59,9 @@ namespace YDManagement.APIControllers
                 // return error message if there was an exception
                 return BadRequest(new { message = ex.Message });
             }
-
         }
 
         // PUT api/<RoleController>/5
-        [Permission(Roles.Administrator)]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] RoleDto model)
         {
@@ -87,14 +81,11 @@ namespace YDManagement.APIControllers
         }
 
         // DELETE api/<RoleController>/5
-        [Permission(Roles.Administrator)]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _roleService.Delete(id);
             return Ok();
-        }        
+        }
     }
-   
-       
 }
