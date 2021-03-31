@@ -12,7 +12,7 @@ using YDManagement.Helpers;
 
 namespace YDManagement.APIControllers
 {
-    [Route("api/[controller]")]
+    [Route("api/product")]
     [ApiController]
     [Authorize] // The request must be contains jwt
     public class ProductController : ControllerBase
@@ -28,7 +28,7 @@ namespace YDManagement.APIControllers
 
         // GET: api/<ProductController>
 
-        [HttpGet]
+        [HttpGet("get-all")]
         public IActionResult GetAll()
         {
             var result = new JResultHelper();
@@ -41,7 +41,7 @@ namespace YDManagement.APIControllers
 
         // GET api/<ProductController>/5
 
-        [HttpGet("GetById/{id}")]
+        [HttpGet("get-by-id/{id}")]
         public IActionResult GetById(int id)
         {
             var data = _productService.GetById(id);
@@ -50,7 +50,7 @@ namespace YDManagement.APIControllers
 
         // POST api/<ProductController>
 
-        [HttpPost]
+        [HttpPost("create")]
         public IActionResult Create([FromBody] ProductDto model)
         {
             try
@@ -72,7 +72,7 @@ namespace YDManagement.APIControllers
         // PUT api/<ProductController>/5
 
 
-        [HttpPut("{id}")]
+        [HttpPut("update/{id}")]
         public IActionResult Update(int id, [FromBody] ProductDto model)
         {
             var data = _mapper.Map<Product>(model);
@@ -91,7 +91,7 @@ namespace YDManagement.APIControllers
         // DELETE api/<CategoryController>/5
 
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public IActionResult Delete(int id)
         {
             _productService.Delete(id);

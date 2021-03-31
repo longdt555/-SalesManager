@@ -5,12 +5,13 @@ using Lib.Common.Helpers;
 using Lib.Data.Entity;
 using Lib.Service.Dtos;
 using Lib.Service.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using YDManagement.Authorization;
 
 namespace YDManagement.APIControllers
 {
-    [Route("api/[controller]")]
+    [Route("api/role")]
     [ApiController]
     [Permission(Roles.Administrator)]
     [Authorize] // The request must be contains jwt
@@ -25,7 +26,7 @@ namespace YDManagement.APIControllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("get-all")]
         public IActionResult GetAll()
         {
             var data = _roleService.GetAll();
@@ -33,7 +34,7 @@ namespace YDManagement.APIControllers
         }
 
         // GET api/<RoleController>/5
-        [HttpGet("{id}")]
+        [HttpGet("get-by-id/{id}")]
         public IActionResult GetById(int id)
         {
             var data = _roleService.GetById(id);
@@ -42,7 +43,7 @@ namespace YDManagement.APIControllers
         }
 
         // POST api/<RoleController>
-        [HttpPost]
+        [HttpPost("create")]
         public IActionResult Create([FromBody] RoleDto model)
         {
             // map dto to entity
@@ -62,7 +63,7 @@ namespace YDManagement.APIControllers
         }
 
         // PUT api/<RoleController>/5
-        [HttpPut("{id}")]
+        [HttpPut("update/{id}")]
         public IActionResult Update(int id, [FromBody] RoleDto model)
         {
             // map dto to entity and set id
@@ -81,7 +82,7 @@ namespace YDManagement.APIControllers
         }
 
         // DELETE api/<RoleController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public IActionResult Delete(int id)
         {
             _roleService.Delete(id);

@@ -12,7 +12,7 @@ using YDManagement.Helpers;
 
 namespace YDManagement.APIControllers
 {
-    [Route("api/[controller]")]
+    [Route("api/order")]
     [ApiController]
     [Authorize]
     public class OrderController : BaseController
@@ -30,7 +30,7 @@ namespace YDManagement.APIControllers
 
         // GET: api/<ProductController>
         [AllowAnonymous]
-        [HttpGet]
+        [HttpGet("get-all")]
         public IActionResult GetAll()
         {
             var data = _orderService.GetAll();
@@ -38,7 +38,7 @@ namespace YDManagement.APIControllers
         }
 
         // GET api/<ProductController>/5
-        [HttpGet("{id}")]
+        [HttpGet("get-by-id/{id}")]
         public IActionResult GetById(int id)
         {
             var data = _orderService.GetById(id);
@@ -46,7 +46,7 @@ namespace YDManagement.APIControllers
         }
 
         // POST api/<ProductController>
-        [HttpPost("ClientCreate")]
+        [HttpPost("client-create")]
         public IActionResult ClientCreate([FromBody] OrderDto model)
         {
             IActionResult response = Unauthorized();
@@ -81,7 +81,7 @@ namespace YDManagement.APIControllers
 
         // POST api/<ProductController>
 
-        [HttpPost("AdminCreate")]
+        [HttpPost("admin-create")]
         public IActionResult AdminCreate([FromBody] OrderDto model)
         {
             try
@@ -101,7 +101,7 @@ namespace YDManagement.APIControllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("update/{id}")]
         public IActionResult Update(int id, [FromBody] OrderDto model)
         {
             var data = _mapper.Map<Order>(model);
@@ -119,7 +119,7 @@ namespace YDManagement.APIControllers
 
         // DELETE api/<CategoryController>/5
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public IActionResult Delete(int id)
         {
             _orderService.Delete(id);

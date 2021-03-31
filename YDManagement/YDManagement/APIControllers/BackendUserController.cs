@@ -6,11 +6,12 @@ using System;
 using YDManagement.Authorization;
 using Lib.Data.Entity;
 using Lib.Common.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace YDManagement.APIControllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/backend-user")]
     [ApiController]
     public class BackendUserController : BaseController
     {
@@ -36,11 +37,11 @@ namespace YDManagement.APIControllers
             }
             catch (AppException ex)
             {
-                return BadRequest(new {message = ex.Message});
+                return BadRequest(new { message = ex.Message });
             }
         }
 
-        [HttpGet]
+        [HttpGet("get-all")]
         public IActionResult GetAll()
         {
             var data = _backendUserService.GetAll();
@@ -48,7 +49,7 @@ namespace YDManagement.APIControllers
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("get-by-id/{id}")]
         public IActionResult GetById(int id)
         {
             var data = _backendUserService.GetById(id);
@@ -57,7 +58,7 @@ namespace YDManagement.APIControllers
         }
 
 
-        [HttpPut("{id}")]
+        [HttpPut("update/{id}")]
         public IActionResult Update([FromBody] BackendUserDto model)
         {
             // map dataDto to entity and set id
@@ -76,7 +77,7 @@ namespace YDManagement.APIControllers
         }
 
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public IActionResult Delete(int id)
         {
             _backendUserService.Delete(id);

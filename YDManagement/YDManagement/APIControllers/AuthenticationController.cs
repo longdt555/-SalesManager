@@ -20,9 +20,9 @@ using YDManagement.Helpers;
 
 namespace YDManagement.APIControllers
 {
-    [Route("api/[controller]")]
+    [Route("api/authentication")]
     [ApiController]
-    public class AuthenticationController : ControllerBase
+    public class AuthenticationController : BaseController
     {
         private readonly Jwt _jwt;
         private readonly IMapper _mapper;
@@ -41,7 +41,7 @@ namespace YDManagement.APIControllers
         #region Client
 
         [AllowAnonymous]
-        [HttpPost("ClientLogin")]
+        [HttpPost("client-login")]
         public IActionResult ClientLogin([FromBody] UserPortalDto model)
         {
             IActionResult response = Unauthorized();
@@ -80,10 +80,10 @@ namespace YDManagement.APIControllers
             }
         }
 
-        [HttpPost("ClientLogout")]
+        [HttpPost("client-logout")]
         public IActionResult ClientLogout()
         {
-            Helpers.AppHelpers.RemoveCurrentCustomerData();
+            RemoveCurrentCustomerData();
             HttpContext.Session.Clear();
             return NoContent();
         }
@@ -93,7 +93,7 @@ namespace YDManagement.APIControllers
         #region Admin portal
 
         [AllowAnonymous]
-        [HttpPost("AdminLogin")]
+        [HttpPost("admin-login")]
         public IActionResult AdminLogin([FromBody] UserPortalDto model)
         {
             IActionResult response = Unauthorized();
@@ -132,10 +132,10 @@ namespace YDManagement.APIControllers
             }
         }
 
-        [HttpPost("AdminLogout")]
+        [HttpPost("admin-logout")]
         public IActionResult AdminLogout()
         {
-            Helpers.AppHelpers.RemoveCurrentBackendUserData();
+            RemoveCurrentBackendUserData();
             HttpContext.Session.Clear();
             return NoContent();
         }

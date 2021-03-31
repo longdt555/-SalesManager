@@ -10,7 +10,7 @@ using YDManagement.Helpers;
 
 namespace YDManagement.APIControllers
 {
-    [Route("api/[controller]")]
+    [Route("api/customer")]
     [ApiController]
     [Authorize]
     public class CustomerController : ControllerBase
@@ -25,7 +25,7 @@ namespace YDManagement.APIControllers
         }
 
         // GET: api/<CategoryController>
-        [HttpGet]
+        [HttpGet("get-all")]
         public IActionResult GetAll()
         {
             var result = new JResultHelper();
@@ -36,7 +36,7 @@ namespace YDManagement.APIControllers
         }
 
         // GET api/<CategoryController>/5
-        [HttpGet("{id}")]
+        [HttpGet("get-by-id/{id}")]
         public IActionResult GetById(int id)
         {
             var result = new JResultHelper();
@@ -47,7 +47,7 @@ namespace YDManagement.APIControllers
 
         // POST api/<CategoryController>
 
-        [HttpPost]
+        [HttpPost("create")]
         public IActionResult Create([FromBody] CustomerDto model)
         {
             try
@@ -69,7 +69,7 @@ namespace YDManagement.APIControllers
 
         // PUT api/<CategoryController>/5
 
-        [HttpPut("{id}")]
+        [HttpPut("update/{id}")]
         public IActionResult Update(int id, [FromBody] CustomerDto model)
         {
             var data = _mapper.Map<Customer>(model);
@@ -87,7 +87,7 @@ namespace YDManagement.APIControllers
 
         // DELETE api/<CategoryController>/5
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public IActionResult Delete(int id)
         {
             _customerService.Delete(id);
