@@ -7,9 +7,6 @@ using Lib.Service.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using YDManagement.Authorization;
 
 namespace YDManagement.APIControllers
@@ -18,16 +15,18 @@ namespace YDManagement.APIControllers
     {
         private readonly ITransactionService _transactionService;
         private readonly IMapper _mapper;
+
         public TransactionController(ITransactionService transactionService, IMapper mapper)
         {
             _transactionService = transactionService;
             _mapper = mapper;
-           
         }
+
         public IActionResult Create([FromBody] TransactionDto model)
         {
             IActionResult response = Unauthorized();
-             try {
+            try
+            {
                 var today = DateTime.Now;
                 var currentUser = ClientCurrentUser.Id;
                 var data = _mapper.Map<Transaction>(model);
@@ -43,8 +42,8 @@ namespace YDManagement.APIControllers
                 Console.WriteLine(e);
                 return response;
             }
-
         }
+
         [Permission(Roles.Administrator + ", " + Roles.Client)]
         //[Authorization.Authorize]
         [HttpGet("{id}")]
@@ -53,6 +52,7 @@ namespace YDManagement.APIControllers
             var data = _transactionService.GetById(id);
             return Ok(data);
         }
+
         [Permission(Roles.Administrator + ", " + Roles.Client)]
         //[Authorization.Authorize]
         [HttpGet]
@@ -61,6 +61,7 @@ namespace YDManagement.APIControllers
             var data = _transactionService.GetAll();
             return Ok(data);
         }
+
         [Permission(Roles.Administrator + ", " + Roles.Client)]
         //[Authorization.Authorize]
         [HttpPut]
@@ -71,14 +72,13 @@ namespace YDManagement.APIControllers
                 model.UpdatedDate = DateTime.Now;
                 model.UpdatedBy = AdminCurrentUser.Id;
                 _transactionService.Update(model);
-                return Ok(new { StatusCode = StatusCodes.Status200OK, Message = AppCodeStatus.SuccessUpdate });
+                return Ok(new {StatusCode = StatusCodes.Status200OK, Message = AppCodeStatus.SuccessUpdate});
             }
             catch (AppException ex)
-            {             
-                        // return error message if there was an exception
-                        return BadRequest(new { message = ex.Message });               
+            {
+                // return error message if there was an exception
+                return BadRequest(new {message = ex.Message});
             }
         }
-
     }
 }

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Lib.Service.Services
 {
-   public class TransactionDetailService : ITransactionDetailService
+    public class TransactionDetailService : ITransactionDetailService
     {
         private readonly YdmApiDbContext _context;
 

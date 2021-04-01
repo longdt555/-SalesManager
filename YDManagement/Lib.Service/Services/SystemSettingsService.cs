@@ -7,16 +7,18 @@ using Lib.Service.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Lib.Service.Services
 {
-    public class SystemSettingsService : ISystemSettingsService {
+    public class SystemSettingsService : ISystemSettingsService
+    {
         private readonly YdmApiDbContext _context;
+
         public SystemSettingsService(YdmApiDbContext context)
         {
             _context = context;
         }
+
         public SystemSettingsDto GetById(int id)
         {
             throw new NotImplementedException();
@@ -35,15 +37,16 @@ namespace Lib.Service.Services
         public SystemSettings Create(SystemSettings obj)
         {
             #region validate
+
             #endregion
+
             _context.SystemSettingss.Add(obj);
             _context.SaveChanges();
             return obj;
         }
+
         public void Update(SystemSettings obj)
         {
-           
-
             var exObj = _context.SystemSettingss.FirstOrDefault(x => x.Id == obj.Id && x.IsDeleted == false);
             if (exObj == null)
                 throw new AppException(AppCodeStatus.ObjectNotFound);
@@ -52,6 +55,7 @@ namespace Lib.Service.Services
             _context.SystemSettingss.Update(exObj);
             _context.SaveChanges();
         }
+
         public void Delete(int id)
         {
             var data = _context.SystemSettingss.FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
@@ -60,6 +64,7 @@ namespace Lib.Service.Services
             _context.SystemSettingss.Update(data);
             _context.SaveChanges();
         }
+
         public void DeleteMany(List<int> ids)
         {
             var data = _context.SystemSettingss.Where(x => ids.Contains(x.Id) && x.IsDeleted == false);
@@ -69,10 +74,10 @@ namespace Lib.Service.Services
             _context.SystemSettingss.UpdateRange(data);
             _context.SaveChanges();
         }
+
         public int GetRecordCount()
         {
             return _context.SystemSettingss.Count();
         }
     }
-      
 }
