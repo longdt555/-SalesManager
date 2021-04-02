@@ -10,7 +10,7 @@ using YDManagement.Helpers;
 
 namespace YDManagement.APIControllers
 {
-    [Route("api/[controller]")]
+    [Route("api/customer")]
     [ApiController]
     [Authorize]
     public class CustomerController : ControllerBase

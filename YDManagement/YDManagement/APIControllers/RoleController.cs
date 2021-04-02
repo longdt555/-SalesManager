@@ -10,7 +10,7 @@ using YDManagement.Authorization;
 
 namespace YDManagement.APIControllers
 {
-    [Route("api/[controller]")]
+    [Route("api/role")]
     [ApiController]
     [Permission(Roles.Administrator)]
     /*[Authorize]*/ // The request must be contains jwt

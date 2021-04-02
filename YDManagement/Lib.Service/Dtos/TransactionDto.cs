@@ -14,6 +14,6 @@ namespace Lib.Service.Dtos
         public string ShippingFee { get; set; }
         public CustomerCartStatusEnum Status { get; set; } = 0;
         public PaymentMethodEnum PaymentMethod { get; set; } = 0;
-        public IEnumerable<TransactionDetail> TransactionDetails { get; set; }
+        public IEnumerable<TransactionDetails> TransactionDetails { get; set; }
     }
 }

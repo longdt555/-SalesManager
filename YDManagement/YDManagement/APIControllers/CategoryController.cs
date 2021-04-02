@@ -12,7 +12,7 @@ using YDManagement.Helpers;
 
 namespace YDManagement.APIControllers
 {
-    [Route("api/[controller]")]
+    [Route("api/category")]
     [ApiController]
     [Authorize]
     public class CategoryController : ControllerBase

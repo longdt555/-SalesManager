@@ -10,7 +10,7 @@ using Lib.Common.Helpers;
 
 namespace YDManagement.APIControllers
 {    
-    [Route("api/[controller]")]
+    [Route("api/backend-user")]
     [ApiController]
     public class BackendUserController : BaseController
     {

@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using Lib.Common;
 using Lib.Common.Helpers;
 using Lib.Data.Entity;
@@ -12,39 +11,39 @@ using System;
 
 namespace YDManagement.APIControllers
 {
-    [Route("api/[controller]")]
+    [Route("api/customer-cart")]
     [ApiController]
     [Authorize]
     public class CustomerCartController : BaseController
     {
         private readonly ICustomerCartService _customerCartService;
         private readonly IMapper _mapper;
+
         public CustomerCartController(ICustomerCartService customerCartService, IMapper mapper)
         {
             _customerCartService = customerCartService;
             _mapper = mapper;
         }
+
         [HttpPost]
         public IActionResult Create([FromBody] CustomerCartDto model)
         {
-            IActionResult response = Unauthorized();           
+            IActionResult response = Unauthorized();
             var data = _mapper.Map<CustomerCart>(model);
             try
             {
-               
-                var today = DateTime.Now;                                          
-                data.CreatedDate = DateTime.Now;                      
+                var today = DateTime.Now;
+                data.CreatedDate = DateTime.Now;
                 _customerCartService.Create(data);
                 var dataDto = _mapper.Map<CustomerCartDto>(data);
                 return Ok(dataDto);
             }
             catch (AppException ex)
-            {                                       
-                        return BadRequest(new { message = ex.Message });
-                }
-
-
+            {
+                return BadRequest(new {message = ex.Message});
+            }
         }
+
         [AllowAnonymous]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] CustomerCartDto model)
@@ -54,15 +53,14 @@ namespace YDManagement.APIControllers
             var data = _mapper.Map<CustomerCart>(model);
             try
             {
-                
-                data.UpdatedDate = DateTime.Now;             
+                data.UpdatedDate = DateTime.Now;
                 _customerCartService.Update(data, 1);
                 return Ok();
             }
             catch (AppException ex)
             {
                 switch (ex.Message)
-                {                  
+                {
                     case AppCodeStatus.ObjectNotFound:
                         return Ok(new
                         {
@@ -71,10 +69,11 @@ namespace YDManagement.APIControllers
                         });
                     default:
                         // return error message if there was an exception
-                        return BadRequest(new { message = ex.Message });
+                        return BadRequest(new {message = ex.Message});
                 }
             }
         }
+
         [AllowAnonymous]
         [HttpDelete("id")]
         public IActionResult Delete(int id)

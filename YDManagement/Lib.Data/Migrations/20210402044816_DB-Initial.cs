@@ -4,7 +4,7 @@ using MySql.Data.EntityFrameworkCore.Metadata;
 
 namespace Lib.Data.Migrations
 {
-    public partial class InitialDatabase : Migration
+    public partial class DBInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -66,6 +66,23 @@ namespace Lib.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "systemsettings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    DataType = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_systemsettings", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "product",
                 columns: table => new
                 {
@@ -120,6 +137,33 @@ namespace Lib.Data.Migrations
                     table.PrimaryKey("PK_customerprofile", x => x.Id);
                     table.ForeignKey(
                         name: "FK_customerprofile_customer_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "customer",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "expiredlink",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CustomerId = table.Column<int>(nullable: false),
+                    Email = table.Column<string>(nullable: true),
+                    CreatedTime = table.Column<DateTime>(nullable: true),
+                    ExpiredTime = table.Column<DateTime>(nullable: true),
+                    SoftKey = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(nullable: true),
+                    Type = table.Column<int>(nullable: false),
+                    State = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_expiredlink", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_expiredlink_customer_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "customer",
                         principalColumn: "Id",
@@ -256,7 +300,7 @@ namespace Lib.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "transactiondetail",
+                name: "transactiondetails",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -277,9 +321,9 @@ namespace Lib.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_transactiondetail", x => x.Id);
+                    table.PrimaryKey("PK_transactiondetails", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_transactiondetail_transaction_TransactionId",
+                        name: "FK_transactiondetails_transaction_TransactionId",
                         column: x => x.TransactionId,
                         principalTable: "transaction",
                         principalColumn: "Id",
@@ -291,14 +335,14 @@ namespace Lib.Data.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "Description", "IsDeleted", "Name", "ParentId", "Title", "UpdatedBy", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2021, 3, 15, 1, 29, 50, 372, DateTimeKind.Local).AddTicks(3122), "Adidas is a multinational firm which was founded in 1948. The firs specialized in designing and manufacturing of sports clothing and accessories.", false, "Adidas", 0, null, null, null },
-                    { 2, null, new DateTime(2021, 3, 15, 1, 29, 50, 372, DateTimeKind.Local).AddTicks(3501), "It was founded in 1964 as Blue Ribbon Sports by Bill Bowerman, a track-and-field coach at the University of Oregon, and his former student Phil Knight. They opened their first retail outlet in 1966 and launched the Nike brand shoe in 1972.", false, "Nike", 0, null, null, null }
+                    { 1, null, new DateTime(2021, 4, 2, 11, 48, 15, 419, DateTimeKind.Local).AddTicks(4561), "Adidas is a multinational firm which was founded in 1948. The firs specialized in designing and manufacturing of sports clothing and accessories.", false, "Adidas", 0, null, null, null },
+                    { 2, null, new DateTime(2021, 4, 2, 11, 48, 15, 419, DateTimeKind.Local).AddTicks(4610), "It was founded in 1964 as Blue Ribbon Sports by Bill Bowerman, a track-and-field coach at the University of Oregon, and his former student Phil Knight. They opened their first retail outlet in 1966 and launched the Nike brand shoe in 1972.", false, "Nike", 0, null, null, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "customer",
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "Email", "IsDeleted", "Name", "Password", "Status", "UpdatedBy", "UpdatedDate" },
-                values: new object[] { 1, null, new DateTime(2021, 3, 15, 1, 29, 50, 371, DateTimeKind.Local).AddTicks(8923), "longdt555@gmail.com", false, "YONG", "e10adc3949ba59abbe56e057f20f883e", 0, null, null });
+                values: new object[] { 1, null, new DateTime(2021, 4, 2, 11, 48, 15, 419, DateTimeKind.Local).AddTicks(2465), "longdt555@gmail.com", false, "YONG", "e10adc3949ba59abbe56e057f20f883e", 0, null, null });
 
             migrationBuilder.InsertData(
                 table: "role",
@@ -313,17 +357,17 @@ namespace Lib.Data.Migrations
             migrationBuilder.InsertData(
                 table: "backenduser",
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "FirstName", "IsDeleted", "LastName", "Password", "RoleId", "UpdatedBy", "UpdatedDate", "UserName" },
-                values: new object[] { 1, null, new DateTime(2021, 3, 15, 1, 29, 50, 369, DateTimeKind.Local).AddTicks(5316), "Admin", false, "Mr", "77035d7402f0bde20eeaaf775731d099", 1, null, null, "Admin" });
+                values: new object[] { 1, null, new DateTime(2021, 4, 2, 11, 48, 15, 417, DateTimeKind.Local).AddTicks(6682), "Admin", false, "Mr", "77035d7402f0bde20eeaaf775731d099", 1, null, null, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "product",
                 columns: new[] { "Id", "CategoryId", "CreatedBy", "CreatedDate", "Description", "IsDeleted", "Name", "Price", "Quantity", "UpdatedBy", "UpdatedDate" },
-                values: new object[] { 2, 2, null, new DateTime(2021, 3, 15, 1, 29, 50, 373, DateTimeKind.Local).AddTicks(2519), "The Nike Rise 365 Top delivers versatile performance for everyday running. Designed for lightweight mobility, the top features soft fabric with increased ventilation where you need it most.", false, "Nike Rise 365 BRS", 1279000m, 100, null, null });
+                values: new object[] { 2, 2, null, new DateTime(2021, 4, 2, 11, 48, 15, 419, DateTimeKind.Local).AddTicks(8815), "The Nike Rise 365 Top delivers versatile performance for everyday running. Designed for lightweight mobility, the top features soft fabric with increased ventilation where you need it most.", false, "Nike Rise 365 BRS", 1279000m, 100, null, null });
 
             migrationBuilder.InsertData(
                 table: "product",
                 columns: new[] { "Id", "CategoryId", "CreatedBy", "CreatedDate", "Description", "IsDeleted", "Name", "Price", "Quantity", "UpdatedBy", "UpdatedDate" },
-                values: new object[] { 1, 1, null, new DateTime(2021, 3, 15, 1, 29, 50, 373, DateTimeKind.Local).AddTicks(2368), "Timeless appeal. Effortless style. Everyday versatility. For over 50 years and counting, adidas Stan Smith Shoes have continued to hold their place as an icon. This pair shows off a fresh redesign as part of adidas' commitment to use only recycled polyester by 2024. Plus, they have an outsole made from rubber waste add to the classic style. This product is made with Primegreen, a series of high - performance recycled materials. 50 % of upper is recycled content. No virgin polyester.", false, "STAN SMITH", 2300000m, 100, null, null });
+                values: new object[] { 1, 1, null, new DateTime(2021, 4, 2, 11, 48, 15, 419, DateTimeKind.Local).AddTicks(8735), "Timeless appeal. Effortless style. Everyday versatility. For over 50 years and counting, adidas Stan Smith Shoes have continued to hold their place as an icon. This pair shows off a fresh redesign as part of adidas' commitment to use only recycled polyester by 2024. Plus, they have an outsole made from rubber waste add to the classic style. This product is made with Primegreen, a series of high - performance recycled materials. 50 % of upper is recycled content. No virgin polyester.", false, "STAN SMITH", 2300000m, 100, null, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_backenduser_RoleId",
@@ -343,6 +387,11 @@ namespace Lib.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_customerprofile_CustomerId",
                 table: "customerprofile",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_expiredlink_CustomerId",
+                table: "expiredlink",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
@@ -371,8 +420,8 @@ namespace Lib.Data.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_transactiondetail_TransactionId",
-                table: "transactiondetail",
+                name: "IX_transactiondetails_TransactionId",
+                table: "transactiondetails",
                 column: "TransactionId");
         }
 
@@ -385,10 +434,16 @@ namespace Lib.Data.Migrations
                 name: "customerprofile");
 
             migrationBuilder.DropTable(
+                name: "expiredlink");
+
+            migrationBuilder.DropTable(
                 name: "order");
 
             migrationBuilder.DropTable(
-                name: "transactiondetail");
+                name: "systemsettings");
+
+            migrationBuilder.DropTable(
+                name: "transactiondetails");
 
             migrationBuilder.DropTable(
                 name: "role");
