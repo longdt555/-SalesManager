@@ -3,7 +3,6 @@ using Lib.Service.Dtos;
 using Lib.Service.IServices;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using YDManagement.Authorization;
 using Lib.Data.Entity;
 using Lib.Common.Helpers;
 using Microsoft.AspNetCore.Authorization;
