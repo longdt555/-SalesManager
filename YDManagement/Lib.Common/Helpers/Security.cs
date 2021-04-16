@@ -9,15 +9,15 @@ namespace Lib.Common.Helpers
         public static string Encrypt(string toEncrypt, string key, bool useHashing = true)
         {
             byte[] keyArray;
-            byte[] toEncryptArray = UTF8Encoding.UTF8.GetBytes(toEncrypt);
+            byte[] toEncryptArray = Encoding.UTF8.GetBytes(toEncrypt);
 
             if (useHashing)
             {
                 var hashmd5 = new MD5CryptoServiceProvider();
-                keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+                keyArray = hashmd5.ComputeHash(Encoding.UTF8.GetBytes(key));
             }
             else
-                keyArray = UTF8Encoding.UTF8.GetBytes(key);
+                keyArray = Encoding.UTF8.GetBytes(key);
 
             var tdes = new TripleDESCryptoServiceProvider();
             tdes.Key = keyArray;
@@ -41,10 +41,10 @@ namespace Lib.Common.Helpers
                 if (useHashing)
                 {
                     var hashmd5 = new MD5CryptoServiceProvider();
-                    keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+                    keyArray = hashmd5.ComputeHash(Encoding.UTF8.GetBytes(key));
                 }
                 else
-                    keyArray = UTF8Encoding.UTF8.GetBytes(key);
+                    keyArray = Encoding.UTF8.GetBytes(key);
 
                 var tdes = new TripleDESCryptoServiceProvider();
                 tdes.Key = keyArray;
@@ -54,7 +54,7 @@ namespace Lib.Common.Helpers
                 var cTransform = tdes.CreateDecryptor();
                 byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
 
-                rt = UTF8Encoding.UTF8.GetString(resultArray);
+                rt = Encoding.UTF8.GetString(resultArray);
             }
             catch
             {

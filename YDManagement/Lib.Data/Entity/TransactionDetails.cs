@@ -2,8 +2,8 @@
 
 namespace Lib.Data.Entity
 {
-    [Table("transactiondetail")]
-    public class TransactionDetail : BaseImpact
+    [Table("transactiondetails")]
+    public class TransactionDetails : BaseImpact
     {
         public string Village { get; set; }
         public string FullName { get; set; }

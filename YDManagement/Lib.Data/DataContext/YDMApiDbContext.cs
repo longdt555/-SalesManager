@@ -14,9 +14,9 @@ namespace Lib.Data.DataContext
         public DbSet<CustomerCart> CustomerCarts { get; set; }
         public DbSet<CustomerProfile> CustomerProfiles { get; set; }
         public DbSet<ExpiredLink> ExpiredLinks { get; set; }
-        public DbSet<SystemSettings> SystemSettings { get; set; }
+        public DbSet<SystemSettings> SystemSettingss { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<TransactionDetail> TransactionDetails { get; set; }
+        public DbSet<TransactionDetails> TransactionDetails { get; set; }
         public DbSet<BackendUser> BackendUsers { get; set; }
         public DbSet<Role> Roles { get; set; }
         
@@ -160,7 +160,7 @@ namespace Lib.Data.DataContext
                 .HasForeignKey(sc => sc.CustomerCartId);
 
             // transaction detail - transaction
-            modelBuilder.Entity<TransactionDetail>()
+            modelBuilder.Entity<TransactionDetails>()
                 .HasOne(sc => sc.Transaction)
                 .WithMany(s => s.TransactionDetails)
                 .HasForeignKey(sc => sc.TransactionId);

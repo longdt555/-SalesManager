@@ -8,7 +8,7 @@ using Lib.Service.Services.IServices;
 
 namespace Lib.Service.Services
 {
-   public class TransactionDetailService : ITransactionDetailService
+    public class TransactionDetailService : ITransactionDetailService
     {
         private readonly YdmApiDbContext _context;
 
@@ -32,7 +32,7 @@ namespace Lib.Service.Services
             throw new NotImplementedException();
         }
 
-        public TransactionDetail Create(TransactionDetail obj)
+        public TransactionDetails Create(TransactionDetails obj)
         {
             #region validate
 

@@ -20,7 +20,11 @@ using YDManagement.Helpers;
 
 namespace YDManagement.APIControllers
 {
+<<<<<<< HEAD
     [Route("api/authentication")]
+=======
+    [Route("api/auth")]
+>>>>>>> ddf41198ba9c8954c5468c9e3c0d4a6c33c7fbe7
     [ApiController]
     public class AuthenticationController : BaseController
     {

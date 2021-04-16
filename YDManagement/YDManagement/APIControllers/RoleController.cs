@@ -14,7 +14,7 @@ namespace YDManagement.APIControllers
     [Route("api/role")]
     [ApiController]
     [Permission(Roles.Administrator)]
-    [Authorize] // The request must be contains jwt
+    /*[Authorize]*/ // The request must be contains jwt
     public class RoleController : BaseController
     {
         private readonly IRoleService _roleService;

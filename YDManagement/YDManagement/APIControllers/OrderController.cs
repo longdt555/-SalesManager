@@ -87,7 +87,7 @@ namespace YDManagement.APIControllers
             try
             {
                 var today = DateTime.Now;
-                var currentUser = ClientCurrentUser.Id;
+                var currentUser = AdminCurrentUser.Id;
                 var data = _mapper.Map<Order>(model);
                 data.CreatedBy = currentUser;
                 data.CreatedDate = today;

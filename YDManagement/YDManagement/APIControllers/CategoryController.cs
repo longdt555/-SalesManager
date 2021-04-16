@@ -53,7 +53,7 @@ namespace YDManagement.APIControllers
             Unauthorized();
             try
             {
-                var data = _mapper.Map<Category>(model);
+                var data = _mapper.Map<Category>(model);             
                 _categoryService.Create(data);
                 var dataDto = _mapper.Map<OrderDto>(data);
                 return Ok(dataDto);
