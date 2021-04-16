@@ -1,7 +1,6 @@
 using AutoMapper;
 using Lib.Common.Helpers;
 using Lib.Data.DataContext;
-using Lib.Service.IServices;
 using Lib.Service.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -23,6 +22,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Lib.Common.Global;
+using Lib.Service.Services.IServices;
 using YDManagement.Helpers;
 
 namespace YDManagement
@@ -113,18 +113,7 @@ namespace YDManagement
             #endregion
 
             #region Dependency injection - scopes
-            services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<IOrderService, OrderService>();
-            services.AddScoped<ICustomerService, CustomerService>();
-            services.AddScoped<IBackendUserService, BackendUserService>();
-            services.AddScoped<IRoleService, RoleService>();
-            services.AddScoped<ICustomerCartService, CustomerCartService>();
-            services.AddScoped<ICustomerProfileService, CustomerProfileService>();
-            //services.AddScoped<ISystemSettingsService, SystemSettingsService>();
-            services.AddScoped<ITransactionService, TransactionService>();
-            services.AddScoped<ITransactionDetailService, TransactionDetailService>();
-
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             #endregion
 
             #region database context

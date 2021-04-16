@@ -1,4 +1,4 @@
-﻿namespace Lib.Service.Dtos.Parameter
+﻿namespace Lib.Service.Dtos.Parameters
 {
     class SearchParameterDto
     {

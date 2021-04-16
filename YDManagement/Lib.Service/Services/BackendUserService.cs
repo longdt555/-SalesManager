@@ -7,15 +7,15 @@ using Lib.Data.DataContext;
 using Lib.Data.Entity;
 using Lib.Service.Dtos;
 using Lib.Service.Dtos.Auth;
-using Lib.Service.IServices;
+using Lib.Service.Services.IServices;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lib.Service.Services
 {
-    public class BackendUserService : IBackendUserService
+    public class BackendUserService : Repository<BackendUser>, IBackendUserService
     {
         private readonly YdmApiDbContext _context;
-        public BackendUserService(YdmApiDbContext context)
+        public BackendUserService(YdmApiDbContext context) : base(context)
         {
             _context = context;
         }

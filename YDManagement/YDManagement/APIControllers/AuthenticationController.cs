@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Lib.Common;
 using Lib.Common.Helpers;
-using Lib.Service.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +15,7 @@ using Lib.Common.Global;
 using Lib.Common.Model;
 using Lib.Service.Dtos;
 using Lib.Service.Dtos.Auth;
+using Lib.Service.Services.IServices;
 using YDManagement.Helpers;
 
 namespace YDManagement.APIControllers

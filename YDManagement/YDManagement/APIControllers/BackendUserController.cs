@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Lib.Service.Dtos;
-using Lib.Service.IServices;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using Lib.Data.Entity;
 using Lib.Common.Helpers;
+using Lib.Service.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 
 namespace YDManagement.APIControllers
