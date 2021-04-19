@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lib.Data.Migrations
 {
     [DbContext(typeof(YdmApiDbContext))]
-    [Migration("20210402044816_DB-Initial")]
-    partial class DBInitial
+    [Migration("20210314182951_Initial-Database")]
+    partial class InitialDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,7 +65,7 @@ namespace Lib.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2021, 4, 2, 11, 48, 15, 417, DateTimeKind.Local).AddTicks(6682),
+                            CreatedDate = new DateTime(2021, 3, 15, 1, 29, 50, 369, DateTimeKind.Local).AddTicks(5316),
                             FirstName = "Admin",
                             IsDeleted = false,
                             LastName = "Mr",
@@ -116,7 +116,7 @@ namespace Lib.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2021, 4, 2, 11, 48, 15, 419, DateTimeKind.Local).AddTicks(4561),
+                            CreatedDate = new DateTime(2021, 3, 15, 1, 29, 50, 372, DateTimeKind.Local).AddTicks(3122),
                             Description = "Adidas is a multinational firm which was founded in 1948. The firs specialized in designing and manufacturing of sports clothing and accessories.",
                             IsDeleted = false,
                             Name = "Adidas",
@@ -125,7 +125,7 @@ namespace Lib.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2021, 4, 2, 11, 48, 15, 419, DateTimeKind.Local).AddTicks(4610),
+                            CreatedDate = new DateTime(2021, 3, 15, 1, 29, 50, 372, DateTimeKind.Local).AddTicks(3501),
                             Description = "It was founded in 1964 as Blue Ribbon Sports by Bill Bowerman, a track-and-field coach at the University of Oregon, and his former student Phil Knight. They opened their first retail outlet in 1966 and launched the Nike brand shoe in 1972.",
                             IsDeleted = false,
                             Name = "Nike",
@@ -174,7 +174,7 @@ namespace Lib.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2021, 4, 2, 11, 48, 15, 419, DateTimeKind.Local).AddTicks(2465),
+                            CreatedDate = new DateTime(2021, 3, 15, 1, 29, 50, 371, DateTimeKind.Local).AddTicks(8923),
                             Email = "longdt555@gmail.com",
                             IsDeleted = false,
                             Name = "YONG",
@@ -283,46 +283,6 @@ namespace Lib.Data.Migrations
                     b.ToTable("customerprofile");
                 });
 
-            modelBuilder.Entity("Lib.Data.Entity.ExpiredLink", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("CreatedTime")
-                        .HasColumnType("datetime");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("ExpiredTime")
-                        .HasColumnType("datetime");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("SoftKey")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("State")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("expiredlink");
-                });
-
             modelBuilder.Entity("Lib.Data.Entity.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -412,7 +372,7 @@ namespace Lib.Data.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2021, 4, 2, 11, 48, 15, 419, DateTimeKind.Local).AddTicks(8735),
+                            CreatedDate = new DateTime(2021, 3, 15, 1, 29, 50, 373, DateTimeKind.Local).AddTicks(2368),
                             Description = "Timeless appeal. Effortless style. Everyday versatility. For over 50 years and counting, adidas Stan Smith Shoes have continued to hold their place as an icon. This pair shows off a fresh redesign as part of adidas' commitment to use only recycled polyester by 2024. Plus, they have an outsole made from rubber waste add to the classic style. This product is made with Primegreen, a series of high - performance recycled materials. 50 % of upper is recycled content. No virgin polyester.",
                             IsDeleted = false,
                             Name = "STAN SMITH",
@@ -423,7 +383,7 @@ namespace Lib.Data.Migrations
                         {
                             Id = 2,
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2021, 4, 2, 11, 48, 15, 419, DateTimeKind.Local).AddTicks(8815),
+                            CreatedDate = new DateTime(2021, 3, 15, 1, 29, 50, 373, DateTimeKind.Local).AddTicks(2519),
                             Description = "The Nike Rise 365 Top delivers versatile performance for everyday running. Designed for lightweight mobility, the top features soft fabric with increased ventilation where you need it most.",
                             IsDeleted = false,
                             Name = "Nike Rise 365 BRS",
@@ -470,32 +430,6 @@ namespace Lib.Data.Migrations
                             IsDeleted = false,
                             Title = "Editor"
                         });
-                });
-
-            modelBuilder.Entity("Lib.Data.Entity.SystemSettings", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("DataType")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("systemsettings");
                 });
 
             modelBuilder.Entity("Lib.Data.Entity.Transaction", b =>
@@ -546,7 +480,7 @@ namespace Lib.Data.Migrations
                     b.ToTable("transaction");
                 });
 
-            modelBuilder.Entity("Lib.Data.Entity.TransactionDetails", b =>
+            modelBuilder.Entity("Lib.Data.Entity.TransactionDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -595,7 +529,7 @@ namespace Lib.Data.Migrations
 
                     b.HasIndex("TransactionId");
 
-                    b.ToTable("transactiondetails");
+                    b.ToTable("transactiondetail");
                 });
 
             modelBuilder.Entity("Lib.Data.Entity.BackendUser", b =>
@@ -624,15 +558,6 @@ namespace Lib.Data.Migrations
                 {
                     b.HasOne("Lib.Data.Entity.Customer", "Customer")
                         .WithMany("CustomerProfiles")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Lib.Data.Entity.ExpiredLink", b =>
-                {
-                    b.HasOne("Lib.Data.Entity.Customer", "Customer")
-                        .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -675,7 +600,7 @@ namespace Lib.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Lib.Data.Entity.TransactionDetails", b =>
+            modelBuilder.Entity("Lib.Data.Entity.TransactionDetail", b =>
                 {
                     b.HasOne("Lib.Data.Entity.Transaction", "Transaction")
                         .WithMany("TransactionDetails")

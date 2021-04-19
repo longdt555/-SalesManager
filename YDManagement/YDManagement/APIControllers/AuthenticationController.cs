@@ -20,11 +20,7 @@ using YDManagement.Helpers;
 
 namespace YDManagement.APIControllers
 {
-<<<<<<< HEAD
-    [Route("api/authentication")]
-=======
-    [Route("api/auth")]
->>>>>>> ddf41198ba9c8954c5468c9e3c0d4a6c33c7fbe7
+    [Route("api/[controller]")]
     [ApiController]
     public class AuthenticationController : BaseController
     {
@@ -45,7 +41,7 @@ namespace YDManagement.APIControllers
         #region Client
 
         [AllowAnonymous]
-        [HttpPost("client-login")]
+        [HttpPost("ClientLogin")]
         public IActionResult ClientLogin([FromBody] UserPortalDto model)
         {
             IActionResult response = Unauthorized();
@@ -84,7 +80,7 @@ namespace YDManagement.APIControllers
             }
         }
 
-        [HttpPost("client-logout")]
+        [HttpPost("ClientLogout")]
         public IActionResult ClientLogout()
         {
             RemoveCurrentCustomerData();
@@ -97,7 +93,7 @@ namespace YDManagement.APIControllers
         #region Admin portal
 
         [AllowAnonymous]
-        [HttpPost("admin-login")]
+        [HttpPost("AdminLogin")]
         public IActionResult AdminLogin([FromBody] UserPortalDto model)
         {
             IActionResult response = Unauthorized();
@@ -136,7 +132,7 @@ namespace YDManagement.APIControllers
             }
         }
 
-        [HttpPost("admin-logout")]
+        [HttpPost("AdminLogout")]
         public IActionResult AdminLogout()
         {
             RemoveCurrentBackendUserData();

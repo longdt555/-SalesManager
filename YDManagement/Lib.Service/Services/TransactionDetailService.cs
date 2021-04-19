@@ -32,7 +32,7 @@ namespace Lib.Service.Services
             throw new NotImplementedException();
         }
 
-        public TransactionDetails Create(TransactionDetails obj)
+        public TransactionDetail Create(TransactionDetail obj)
         {
             #region validate
 

@@ -9,10 +9,6 @@ using YDManagement.Authorization;
 
 namespace YDManagement.APIControllers
 {
-    [Route("api/system-settings")]
-    [ApiController]
-    [Permission(Roles.Administrator)]
-    /*[Authorize]*/ // The request must be contains jwt
     public class SystemSettingsController : BaseController
     {
         private readonly ISystemSettingsService _systemSettingsService;

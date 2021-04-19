@@ -12,7 +12,7 @@ using YDManagement.Helpers;
 
 namespace YDManagement.APIControllers
 {
-    [Route("api/product")]
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize] // The request must be contains jwt
     public class ProductController : ControllerBase
@@ -28,10 +28,6 @@ namespace YDManagement.APIControllers
 
         // GET: api/<ProductController>
 
-<<<<<<< HEAD
-        [HttpGet("get-all")]
-=======
-        [AllowAnonymous]
         [HttpGet]
 >>>>>>> ddf41198ba9c8954c5468c9e3c0d4a6c33c7fbe7
         public IActionResult GetAll()

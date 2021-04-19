@@ -1,14 +1,12 @@
-﻿using Lib.Data.Entity;
+﻿using System.Collections.Generic;
+using Lib.Data.Entity;
 using Lib.Service.Dtos;
-using System.Collections.Generic;
-using Lib.Service.Services.IServices;
 
-namespace Lib.Service.IServices
+namespace Lib.Service.Services.IServices
 {
     public interface ITransactionService : IReadOnlyService<TransactionDto>
     {
         Transaction Create(Transaction obj);
-        void Update(Transaction obj);
         void Delete(int id);
         void DeleteMany(List<int> ids);
         int GetRecordCount();

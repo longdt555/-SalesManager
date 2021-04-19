@@ -8,10 +8,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using Lib.Service.Services.IServices;
 
 namespace YDManagement.APIControllers
 {
-    [Route("api/customer-cart")]
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize]
     public class CustomerCartController : BaseController

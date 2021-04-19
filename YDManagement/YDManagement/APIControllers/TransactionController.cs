@@ -11,10 +11,6 @@ using YDManagement.Authorization;
 
 namespace YDManagement.APIControllers
 {
-    //[Route("api/transaction")]
-    //[ApiController]
-    //[Permission(Roles.Administrator)]
-    /*[Authorize]*/ // The request must be contains jwt
     public class TransactionController : BaseController
     {
         private readonly ITransactionService _transactionService;

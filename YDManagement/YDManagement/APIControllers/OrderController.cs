@@ -12,7 +12,7 @@ using YDManagement.Helpers;
 
 namespace YDManagement.APIControllers
 {
-    [Route("api/order")]
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize]
     public class OrderController : BaseController
@@ -46,7 +46,7 @@ namespace YDManagement.APIControllers
         }
 
         // POST api/<ProductController>
-        [HttpPost("client-create")]
+        [HttpPost("ClientCreate")]
         public IActionResult ClientCreate([FromBody] OrderDto model)
         {
             IActionResult response = Unauthorized();
@@ -81,7 +81,7 @@ namespace YDManagement.APIControllers
 
         // POST api/<ProductController>
 
-        [HttpPost("admin-create")]
+        [HttpPost("AdminCreate")]
         public IActionResult AdminCreate([FromBody] OrderDto model)
         {
             try

@@ -9,9 +9,9 @@ using System;
 
 namespace YDManagement.APIControllers
 {
-    [Route("api/customer-profile")]
+    [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Microsoft.AspNetCore.Authorization.Authorize]
     public class CustomerProfileController : BaseController
     {
         private readonly ICustomerProfileService _customerProfileService;

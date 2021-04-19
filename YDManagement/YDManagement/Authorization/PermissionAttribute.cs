@@ -10,7 +10,7 @@ namespace YDManagement.Authorization
     public class PermissionAttribute : ActionFilterAttribute
     {
         private string Roles { get; set; }
-        public PermissionAttribute(string roles) { Roles = roles.Trim().Replace(" ", ""); }
+        public PermissionAttribute(string roles) { this.Roles = roles.Trim().Replace(" ", ""); }
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {

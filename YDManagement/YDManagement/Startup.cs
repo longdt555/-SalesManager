@@ -101,7 +101,7 @@ namespace YDManagement
 
             #region auto mapper
 
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(Startup)); 
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new AutoMapperConfig());
