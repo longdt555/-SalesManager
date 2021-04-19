@@ -6,7 +6,6 @@ using System;
 using Lib.Data.Entity;
 using Lib.Common.Helpers;
 using Lib.Service.Services.IServices;
-using Microsoft.AspNetCore.Authorization;
 using YDManagement.Authorization;
 
 namespace YDManagement.APIControllers

@@ -6,6 +6,5 @@ namespace Lib.Service.Services.IServices
     public interface ITransactionDetailService : IReadOnlyService<TransactionDto>
     {
         TransactionDetail Create(TransactionDetail obj);
-       
     }
 }
